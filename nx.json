@@ -13,9 +13,10 @@
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "nx/tasks-runners/default",
+      "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "accessToken": "OTZiOTZjYWMtOWY4NS00NWEzLTljYjQtZDQ2M2MzNTEyMTgyfHJlYWQtd3JpdGU="
       }
     }
   },
@@ -24,5 +25,18 @@
       "dependsOn": ["^build"]
     }
   },
-  "defaultProject": "back"
+  "defaultProject": "back",
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "styled-components",
+        "linter": "eslint"
+      }
+    }
+  }
 }
