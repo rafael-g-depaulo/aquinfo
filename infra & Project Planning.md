@@ -1,18 +1,21 @@
 # Tools
 
-yarn v3.2.2.
-node v16.16.0 (Gallium)
+## Main dependencies
+1. yarn v3.2.2.
+2. node v16.16.0 (Gallium)
+3. Typescript v4.7.2
 
-express
-next
-prisma (postgres)
+## Main tools/frameworks
+1. express
+2. next (react)
+3. prisma (postgres)
 
 ## Front
-- react-hook-form
-- react-query
-- styled-components
-- react-router
-- zustand pra estado (https://github.com/pmndrs/zustand)
+- react-hook-form (forms)
+- axios + react-query (comunicação com back)
+- styled-components (estilização)
+- react-router (roteamento do front)
+- [zustand](https://github.com/pmndrs/zustand) (gerenciamento de estado) 
 
 # Infra
 
