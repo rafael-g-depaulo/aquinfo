@@ -4,6 +4,7 @@
 1. yarn v3.2.2.
 2. node v16.16.0 (Gallium)
 3. Typescript v4.7.2
+4. Nx v14.4.3
 
 ## Main tools/frameworks
 1. express
@@ -14,7 +15,6 @@
 - react-hook-form (forms)
 - axios + react-query (comunicação com back)
 - styled-components (estilização)
-- react-router (roteamento do front)
 - [zustand](https://github.com/pmndrs/zustand) (gerenciamento de estado) 
 
 # Infra
