@@ -39,7 +39,9 @@ testem.log
 Thumbs.db
 
 # If not using zero installs (https://github.com/yarnpkg/berry/issues/454)
-.yarn/*
-!.yarn/releases
-!.yarn/plugins
-.pnp.*
+**/.yarn/*
+!**/.yarn/releases
+!**/.yarn/plugins
+**/.pnp.*
+
+.env
