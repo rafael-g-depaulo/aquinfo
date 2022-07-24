@@ -3,7 +3,7 @@
   "version": 2,
   "projects": {
     "back": "apps/back",
-    "bd": "libs/bd",
+    "db": "libs/db",
     "front": "apps/front",
     "front-e2e": "apps/front-e2e"
   }

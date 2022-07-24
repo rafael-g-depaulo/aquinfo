@@ -15,7 +15,7 @@ __metadata:
   peerDependenciesMeta:
     prisma:
       optional: true
-  checksum: bd722305284c633f9c1f8c92efb4db47ab8d47ce12384ed75b99880333f017a69f5ce65d546b306a0fe3a21e9d068e287ce96b4421c7b657e5b1c949673f8179
+  checksum: db722305284c633f9c1f8c92efb4db47ab8d47ce12384ed75b99880333f017a69f5ce65d546b306a0fe3a21e9d068e287ce96b4421c7b657e5b1c949673f8179
   languageName: node
   linkType: hard
 
@@ -33,9 +33,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bd@workspace:.":
+"db@workspace:.":
   version: 0.0.0-use.local
-  resolution: "bd@workspace:."
+  resolution: "db@workspace:."
   dependencies:
     "@prisma/client": 4.1.0
     prisma: ^4.1.0
@@ -50,6 +50,6 @@ __metadata:
   bin:
     prisma: build/index.js
     prisma2: build/index.js
-  checksum: c566f03e8d0547c42fa8fe67f772c477dc68993654347434aac5317a2a1799470dedabdbc428a7d48375f8930e0fcd6c41e9a0d85686315ff7bfcdf3f73a9d56
+  checksum: c566f03e8d0547c42fa8fe67f772c477dc68993654347434aac5317a2a1799470dedadbbc428a7d48375f8930e0fcd6c41e9a0d85686315ff7bfcdf3f73a9d56
   languageName: node
   linkType: hard

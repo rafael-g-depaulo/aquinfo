@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@bd": ["libs/bd/src/index.ts"]
+      "@db": ["libs/db/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

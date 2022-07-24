@@ -1,5 +1,5 @@
 {
-  "name": "bd",
+  "name": "db",
   "version": "0.0.1",
   "devDependencies": {
     "prisma": "^4.1.0"
