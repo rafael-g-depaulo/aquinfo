@@ -9,4 +9,19 @@ services:
       POSTGRES_USER: prisma
       POSTGRES_PASSWORD: prisma
     volumes:
-      - ./tmp/postgres:/var/lib/postgresql/data
+      - /tmp/postgres/siga-water:/var/lib/postgresql/data
+
+# not working yet
+  back:
+    # stdin_open: true
+    # tty: true
+    volumes:
+      - ./apps/back:/app/apps/back
+      - ./apps/libs:/app/libs
+      - ./node_modules:/app/node_modules
+    build:
+      context: .
+      dockerfile: ./dockerfiles/node.dockerfile
+    environment:
+      - DATABASE_URL=postgres://prisma:prisma@localhost:5432/prisma
+    command: nx serve back

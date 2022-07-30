@@ -5,11 +5,11 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
+    "build-db": "cd libs/db && yarn && yarn prisma generate && yarn prisma db push",
     "test": "nx test"
   },
   "private": true,
   "dependencies": {
-    "@nrwl/next": "14.4.3",
     "axios": "^0.27.2",
     "core-js": "^3.6.5",
     "express": "4.17.2",
