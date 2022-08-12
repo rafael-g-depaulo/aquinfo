@@ -1,9 +1,9 @@
 resource "heroku_app" "api" {
-  name = "aquinfo-api"
+  name   = "aquinfo-api"
   region = "us"
 
   config_vars = {
-    "TEST" = "value being tested"
+    TEST = "value being tested"
   }
 
   buildpacks = ["heroku/nodejs"]
@@ -11,9 +11,15 @@ resource "heroku_app" "api" {
 
 resource "heroku_addon" "postgres-database" {
   app_id = heroku_app.api.id
-  plan = "heroku-postgresql:hobby-dev"
+  plan   = "heroku-postgresql:hobby-dev"
 }
 
 resource "heroku_build" "api-build" {
-  
+  app_id = heroku_app.api.id
+  # buildpacks = ["heroku/nodejs"]
+
+  source {
+    url     = "https://github.com/rafael-g-depaulo/siga-water/tarball/main"
+    version = data.github_branch.main-branch.sha
+  }
 }
