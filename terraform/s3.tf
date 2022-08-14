@@ -17,7 +17,8 @@ resource "aws_iam_user_policy_attachment" "s3-user-s3-crud-access" {
 }
 
 resource "aws_s3_bucket" "aquinfo-images" {
-  bucket = "aquinfo-images-20220814"
+  bucket = "aquinfo-images"
+
   tags = {
     Description = "Bucket for saving images uploaded for aquinfo project"
     CreatedAt   = "2022/08/14"

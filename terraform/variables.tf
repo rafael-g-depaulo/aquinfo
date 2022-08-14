@@ -19,6 +19,12 @@ variable "github_main_branch" {
   default     = "main"
 }
 
+variable "aws_region" {
+  type        = string
+  default     = "us-east-1"
+  description = "default aws region resources are created at"
+}
+
 variable "aws_admin_access_key" {
   type        = string
   description = "access key for aws admin"
