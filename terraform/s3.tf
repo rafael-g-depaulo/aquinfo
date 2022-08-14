@@ -2,6 +2,10 @@ resource "aws_iam_user" "s3-user" {
   name = "aquinfo-s3-user"
 }
 
+resource "aws_iam_access_key" "s3-user-credentials" {
+  user = aws_iam_user.s3-user.name
+}
+
 resource "aws_iam_policy" "s3-crud-access" {
   name   = "S3CrudAccess"
   policy = file("./aws-policies/s3-crud-policy.json")

@@ -3,7 +3,8 @@ resource "heroku_app" "api" {
   region = "us"
 
   config_vars = {
-    TEST = "value being tested"
+    S3_USER_KEY_ID = aws_iam_access_key.s3-user-credentials.id
+    S3_USER_SECRET = aws_iam_access_key.s3-user-credentials.secret
   }
 
   buildpacks = ["heroku/nodejs"]
