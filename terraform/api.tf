@@ -16,12 +16,14 @@ resource "heroku_addon" "postgres-database" {
 
 resource "heroku_build" "api-build" {
   app_id = heroku_app.api.id
-  # buildpacks = ["heroku/nodejs"]
 
-
+  lifecycle {
+    ignore_changes = all
+  }
 
   source {
-    url     = "${data.github_repository.repository.html_url}/tarball/${data.github_repository.repository.default_branch}"
-    version = data.github_branch.main-branch.sha
+    url     = "${github_repository.github-repo.html_url}/tarball/${github_repository.github-repo.default_branch}"
+    version = github_branch.main-branch.sha
   }
+
 }

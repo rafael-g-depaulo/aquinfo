@@ -18,4 +18,7 @@ provider "heroku" {
 }
 
 # Configure the GitHub Provider
-provider "github" {}
+provider "github" {
+  owner = "rafael-g-depaulo"
+  token = var.github_access_token
+}
