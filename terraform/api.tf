@@ -18,8 +18,10 @@ resource "heroku_build" "api-build" {
   app_id = heroku_app.api.id
   # buildpacks = ["heroku/nodejs"]
 
+
+
   source {
-    url     = "https://github.com/rafael-g-depaulo/siga-water/tarball/main"
+    url     = "${data.github_repository.repository.html_url}/tarball/${data.github_repository.repository.default_branch}"
     version = data.github_branch.main-branch.sha
   }
 }
