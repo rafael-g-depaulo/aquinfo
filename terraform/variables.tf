@@ -18,3 +18,13 @@ variable "github_main_branch" {
   description = "main branch used for deploy"
   default     = "main"
 }
+
+variable "aws_admin_access_key" {
+  type        = string
+  description = "access key for aws admin"
+}
+
+variable "aws_admin_secret_key" {
+  type        = string
+  description = "secret for aws admin"
+}

@@ -9,6 +9,11 @@ terraform {
       source  = "integrations/github"
       version = "~> 4.0"
     }
+
+    aws = {
+      source  = "hashicorp/aws"
+      version = "4.26.0"
+    }
   }
 }
 
@@ -21,4 +26,10 @@ provider "heroku" {
 provider "github" {
   owner = "rafael-g-depaulo"
   token = var.github_access_token
+}
+
+provider "aws" {
+  region     = "us-east-1"
+  access_key = var.aws_admin_access_key
+  secret_key = var.aws_admin_secret_key
 }
