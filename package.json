@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "postinstall": "yarn build-db",
+    "postinstall": "[[ ! -z \"$DATABASE_URL\" ]] && yarn build-db || echo \"Skipping db build...\"",
     "heroku-postbuild": "yarn build-db && yarn nx build back",
     "build-api": "yarn build-db && yarn nx build back",
     "build-db": "cd libs/db && yarn && yarn prisma generate && yarn prisma db push",
