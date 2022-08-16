@@ -20,6 +20,13 @@ terraform {
       version = "0.6.2"
     }
   }
+
+  backend "remote" {
+    organization = "aquinfo"
+    workspaces {
+      name = "siga-water"
+    }
+  }
 }
 
 provider "heroku" {
