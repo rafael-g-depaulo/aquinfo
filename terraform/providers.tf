@@ -14,6 +14,11 @@ terraform {
       source  = "hashicorp/aws"
       version = "4.26.0"
     }
+
+    vercel = {
+      source  = "vercel/vercel"
+      version = "0.6.2"
+    }
   }
 }
 
@@ -32,4 +37,8 @@ provider "aws" {
   region     = var.aws_region
   access_key = var.aws_admin_access_key
   secret_key = var.aws_admin_secret_key
+}
+
+provider "vercel" {
+  api_token = var.vercel_api_token
 }

@@ -34,3 +34,8 @@ variable "aws_admin_secret_key" {
   type        = string
   description = "secret for aws admin"
 }
+
+variable "vercel_api_token" {
+  type        = string
+  description = "api token for vercel"
+}

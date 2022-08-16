@@ -1,5 +1,4 @@
 resource "github_repository" "github-repo" {
-  # full_name = "rafael-g-depaulo/siga-water"
   name = "siga-water"
 
   # never change github
