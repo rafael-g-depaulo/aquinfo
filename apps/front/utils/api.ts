@@ -1,5 +1,6 @@
 import axios from "axios";
+import { API_HOST } from "./environment";
 
 export const api = axios.create({
-  baseURL: process.env.NX_API_HOST
+  baseURL: API_HOST
 });
