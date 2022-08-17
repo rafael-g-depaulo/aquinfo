@@ -10,7 +10,7 @@ export const BooksModule = ({ db }: BooksDeps) => {
     .get("/", (req, res) => {
       db.book.findMany()
         .then(books => {
-          res.json(books);
+          res.json([...books, { id: "noneofyourbusiness", title: "hardcoded example", publishDate: new Date() }]);
         });
     })
     .get("/:id", (req, res) => {

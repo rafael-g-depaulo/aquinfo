@@ -9,4 +9,14 @@ resource "vercel_project" "frontend_app" {
     type = "github"
     repo = github_repository.github-repo.full_name
   }
+
+  environment = [
+    {
+      key   = "NX_API_HOST"
+      value = heroku_app.api.web_url
+      target = [
+        "production", "preview", "development"
+      ]
+    }
+  ]
 }
