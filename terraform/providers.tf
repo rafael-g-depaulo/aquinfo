@@ -24,7 +24,7 @@ terraform {
   backend "remote" {
     organization = "aquinfo"
     workspaces {
-      name = "siga-water"
+      name = "aquinfo"
     }
   }
 }

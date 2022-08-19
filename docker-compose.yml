@@ -9,9 +9,9 @@ services:
       POSTGRES_USER: prisma
       POSTGRES_PASSWORD: prisma
     volumes:
-      - /tmp/postgres/siga-water:/var/lib/postgresql/data
+      - /tmp/postgres/aquinfo:/var/lib/postgresql/data
 
-# not working yet
+  # not working yet
   back:
     # stdin_open: true
     # tty: true

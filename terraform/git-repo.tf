@@ -1,5 +1,5 @@
 resource "github_repository" "github-repo" {
-  name = "siga-water"
+  name = "aquinfo"
 
   # never change github
   lifecycle {
