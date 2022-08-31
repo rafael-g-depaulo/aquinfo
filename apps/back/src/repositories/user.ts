@@ -9,6 +9,21 @@ const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/
 
 const generateSalt = () => randomBytes(16).toString("hex")
 
+export const generateHash = (password: string, salt: string) => {
+  const numberOfIterations = 1000
+  const keyLength = 64
+  return pbkdf2Sync(
+    password,
+    salt,
+    numberOfIterations,
+    keyLength,
+    "sha512",
+  ).toString("base64")
+}
+
+export const compareHash = (hash: string, password: string, salt: string) =>
+  generateHash(password, salt) === hash
+
 export const createUser = async (
   { email, password }: UserInfo,
   db: PrismaClient,
@@ -19,15 +34,7 @@ export const createUser = async (
 
   // salt and hash password
   const salt = generateSalt()
-  const numberOfIterations = 1000
-  const keyLength = 64
-  const passwordHash = pbkdf2Sync(
-    password,
-    salt,
-    numberOfIterations,
-    keyLength,
-    "sha512",
-  ).toString("base64")
+  const passwordHash = generateHash(password, salt)
 
   return db.user.create({ data: { email, password: passwordHash, salt } })
 }
