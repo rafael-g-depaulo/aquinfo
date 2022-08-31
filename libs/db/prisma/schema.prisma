@@ -13,3 +13,11 @@ model Book {
   title       String
   publishDate DateTime
 }
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique @db.VarChar(200)
+  password  String
+  salt      String
+  deletedAt DateTime?
+}

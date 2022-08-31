@@ -3,22 +3,25 @@
  * This is only a minimal backend to get started.
  */
 
-import * as express from 'express';
-import { PrismaClient } from "@db";
-import { connectModules } from './app';
+import * as express from "express"
+import { PrismaClient } from "@db"
+import { connectModules } from "./app"
 
-const app = express();
+const app = express()
 
-const db = new PrismaClient();
+// setup global middlewares
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+const db = new PrismaClient()
 
 db.$connect().then(() => {
-  connectModules(app, { db });
-});
+  connectModules(app, { db })
+})
 
-
-const port = process.env.PORT || 3333;
+const port = process.env.PORT || 3333
 
 const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/`);
-});
-server.on('error', console.error);
+  console.log(`Listening at http://localhost:${port}/`)
+})
+server.on("error", console.error)
