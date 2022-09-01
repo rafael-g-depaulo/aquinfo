@@ -1,6 +1,7 @@
-import { ReactNode, createContext, useState } from "react"
+import { ReactNode, createContext, useContext } from "react"
+import { useLocalStorage } from "usehooks-ts"
 
-type Token = null | string
+type Token = string | null
 
 type TokenContext = {
   token: Token
@@ -10,8 +11,7 @@ type TokenContext = {
 const userTokenContext = createContext<TokenContext>(null)
 
 export const UserTokenContext = ({ children }: { children?: ReactNode }) => {
-  const [token, setToken] = useState<Token>(null)
-  console.log("token", token)
+  const [token, setToken] = useLocalStorage<Token>("session-token", null)
 
   return (
     <userTokenContext.Provider value={{ token, setToken }}>
@@ -19,3 +19,5 @@ export const UserTokenContext = ({ children }: { children?: ReactNode }) => {
     </userTokenContext.Provider>
   )
 }
+
+export const useUserToken = () => useContext(userTokenContext)

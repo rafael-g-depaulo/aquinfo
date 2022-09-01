@@ -1,6 +1,8 @@
-import { useCallback } from "react"
+import { startTransition, useCallback } from "react"
 import { useForm } from "react-hook-form"
 import styled from "styled-components"
+import { useMutateLogin } from "../api/adminLogin"
+import { useUserToken } from "../contexts/UserToken"
 import { Button } from "./Button"
 import { FormControl } from "./FormControl"
 
@@ -16,10 +18,21 @@ interface Fields {
 
 export const AdminLoginForm = () => {
   const { register, handleSubmit } = useForm<Fields>()
+  const { data, mutate } = useMutateLogin()
+  const { setToken } = useUserToken()
 
-  const submitCallback = useCallback((args: Fields) => {
-    console.log("asdasd", args)
-  }, [])
+  const submitCallback = useCallback(
+    ({ email, senha }: Fields) => {
+      startTransition(() => {
+        mutate({ email, password: senha })
+      })
+    },
+    [mutate],
+  )
+
+  if (data) {
+    setToken(data.token)
+  }
 
   return (
     <StyledForm onSubmit={handleSubmit(submitCallback)}>
