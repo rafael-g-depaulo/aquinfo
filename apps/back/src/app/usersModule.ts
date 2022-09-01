@@ -42,7 +42,6 @@ export const UsersModule = ({ db }: UsersDeps) => {
       db.user
         .findUnique({ where: { email } })
         .then((user: User | null) => {
-          console.log("AAS")
           if (!user)
             return res
               .status(404)

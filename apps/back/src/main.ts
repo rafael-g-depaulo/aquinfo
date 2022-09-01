@@ -4,12 +4,14 @@
  */
 
 import * as express from "express"
+import * as cors from "cors"
 import { PrismaClient } from "@db"
 import { connectModules } from "./app"
 
 const app = express()
 
 // setup global middlewares
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 

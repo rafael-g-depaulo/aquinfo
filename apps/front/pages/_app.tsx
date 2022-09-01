@@ -1,6 +1,8 @@
-import { AppProps } from "next/app";
-import Head from "next/head";
-import "./styles.css";
+import { AppProps } from "next/app"
+import Head from "next/head"
+import { ReactQueryContext } from "../contexts/ReactQuery"
+import { UserTokenContext } from "../contexts/UserToken"
+import "./styles.css"
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
@@ -8,11 +10,15 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Welcome to front!</title>
       </Head>
-      <main className="app">
-        <Component {...pageProps} />
-      </main>
+      <ReactQueryContext>
+        <UserTokenContext>
+          <main className="app">
+            <Component {...pageProps} />
+          </main>
+        </UserTokenContext>
+      </ReactQueryContext>
     </>
-  );
+  )
 }
 
-export default CustomApp;
+export default CustomApp
