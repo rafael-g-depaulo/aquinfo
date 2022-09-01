@@ -15,7 +15,7 @@ const StyledHomePage = styled.div`
 `
 
 export const getStaticProps = async () => {
-  const res = await api.get<Book[]>("/book")
+  const res = await api.get<Book[]>("/books")
   const data = res.data
 
   return { props: { books: data } }
