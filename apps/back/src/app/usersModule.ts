@@ -1,10 +1,10 @@
 import { PrismaClient, User } from "@db"
 import { Router } from "express"
-import * as bearerToken from "express-bearer-token"
+import { loggedIn } from "../middlewares/loggedIn"
 
 import { createUser } from "../repositories/user"
 import { compareHash } from "../utils/hash"
-import { signToken, verifyToken } from "../utils/token"
+import { signToken } from "../utils/token"
 
 interface UsersDeps {
   db: PrismaClient
@@ -60,9 +60,7 @@ export const UsersModule = ({ db }: UsersDeps) => {
           res.status(500).json({ error })
         })
     })
-    .post("/login-check", bearerToken(), (req, res) => {
-      verifyToken(req.token)
-        .then((payload) => res.json({ msg: "ok?", payload }))
-        .catch(() => res.status(500).json({ message: "invalid token" }))
+    .post("/login-check", loggedIn, (req, res) => {
+      res.json({ msg: "OK!", payload: req.jwt_payload })
     })
 }
