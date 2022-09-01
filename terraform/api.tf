@@ -7,6 +7,7 @@ resource "heroku_app" "api" {
     S3_ACCESS_SECRET = aws_iam_access_key.s3-user-credentials.secret
     S3_BUCKET        = aws_s3_bucket.aquinfo-images.bucket
     S3_REGION        = aws_s3_bucket.aquinfo-images.region
+    JWT_SECRET       = var.api_jwt_secret
   }
 
   buildpacks = ["heroku/nodejs"]

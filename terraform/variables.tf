@@ -39,3 +39,9 @@ variable "vercel_api_token" {
   type        = string
   description = "api token for vercel"
 }
+
+variable "api_jwt_secret" {
+  type        = string
+  sensitive   = true
+  description = "secret for API jwt hashing"
+}
