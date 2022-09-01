@@ -1,4 +1,4 @@
-import { api } from "../../utils/api"
+import { api } from "../../api"
 import styled from "styled-components"
 
 interface Book {

@@ -5,17 +5,18 @@ import { Header } from "../components/Header"
 
 const Background = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: start;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
 `
 
 const Container = styled.div`
+  flex: 1;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: baseline;
-  min-height: 100vh;
   max-width: 100%;
   padding: 0.5rem;
 
