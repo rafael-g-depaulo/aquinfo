@@ -1,5 +1,6 @@
 import { api } from "../../api"
 import styled from "styled-components"
+import { useIsLoggedIn } from "../../api/isLoggedIn"
 
 interface Book {
   id: string
@@ -22,6 +23,7 @@ export const getStaticProps = async () => {
 }
 
 export function HomePage({ books }: HomePageProps) {
+  const isLoggedIn = useIsLoggedIn()
   return (
     <StyledHomePage>
       <h1>Welcome to HomePage! API host is {`${process.env.NX_API_HOST}`}</h1>
@@ -29,6 +31,7 @@ export function HomePage({ books }: HomePageProps) {
       <pre>
         <code>{JSON.stringify(books, null, 2)}</code>
       </pre>
+      <p>is user logged in? {`${isLoggedIn}`}</p>
     </StyledHomePage>
   )
 }

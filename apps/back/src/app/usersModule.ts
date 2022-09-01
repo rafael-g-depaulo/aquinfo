@@ -60,6 +60,6 @@ export const UsersModule = ({ db }: UsersDeps) => {
         })
     })
     .post("/login-check", loggedIn, (req, res) => {
-      res.json({ msg: "OK!", payload: req.jwt_payload })
+      res.json({ payload: req.jwt_payload })
     })
 }

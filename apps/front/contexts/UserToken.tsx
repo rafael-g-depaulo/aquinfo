@@ -1,9 +1,9 @@
 import { ReactNode, createContext, useContext } from "react"
 import { useLocalStorage } from "usehooks-ts"
 
-type Token = string | null
+export type Token = string | null
 
-type TokenContext = {
+export type TokenContext = {
   token: Token
   setToken: (t: Token) => void
 }
