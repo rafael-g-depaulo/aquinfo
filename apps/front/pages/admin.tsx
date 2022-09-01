@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { Button } from "../components/Button"
+import { AdminLoginForm } from "../components/AdminLoginForm"
 import { Card } from "../components/Card"
 import { Header } from "../components/Header"
 
@@ -20,7 +20,6 @@ const Container = styled.div`
   padding: 0.5rem;
 
   ${Card} {
-    width: 36rem;
     max-width: 100%;
   }
 `
@@ -37,9 +36,7 @@ export const AdminLoginPage = () => {
       <Container>
         <Title>Área de Admin</Title>
         <Card>
-          <p>test</p>
-
-          <Button>hiiii</Button>
+          <AdminLoginForm />
         </Card>
       </Container>
     </Background>
