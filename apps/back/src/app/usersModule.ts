@@ -1,6 +1,10 @@
 import { PrismaClient, User } from "@db"
 import { Router } from "express"
-import { compareHash, createUser } from "../repositories/user"
+import * as bearerToken from "express-bearer-token"
+
+import { createUser } from "../repositories/user"
+import { compareHash } from "../utils/hash"
+import { signToken, verifyToken } from "../utils/token"
 
 interface UsersDeps {
   db: PrismaClient
@@ -36,8 +40,9 @@ export const UsersModule = ({ db }: UsersDeps) => {
           .json({ error: "password and email are required" })
 
       db.user
-        .findFirst({ where: { email } })
+        .findUnique({ where: { email } })
         .then((user: User | null) => {
+          console.log("AAS")
           if (!user)
             return res
               .status(404)
@@ -46,8 +51,18 @@ export const UsersModule = ({ db }: UsersDeps) => {
           if (!compareHash(user.password, password, user.salt))
             return res.status(400).json({ error: "password didn't match" })
 
-          return res.json({ user })
+          return res.json({
+            token: signToken({ id: user.id, email: user.email }),
+          })
         })
-        .catch((error) => res.status(500).json({ error }))
+        .catch((error) => {
+          console.log("err", error)
+          res.status(500).json({ error })
+        })
+    })
+    .post("/login-check", bearerToken(), (req, res) => {
+      verifyToken(req.token)
+        .then((payload) => res.json({ msg: "ok?", payload }))
+        .catch(() => res.status(500).json({ message: "invalid token" }))
     })
 }

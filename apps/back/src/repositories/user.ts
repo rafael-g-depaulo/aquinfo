@@ -1,28 +1,11 @@
 import { PrismaClient } from "@db"
-import { randomBytes, pbkdf2Sync } from "node:crypto"
+import { generateHash, generateSalt } from "../utils/hash"
 
 interface UserInfo {
   email: string
   password: string
 }
 const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/
-
-const generateSalt = () => randomBytes(16).toString("hex")
-
-export const generateHash = (password: string, salt: string) => {
-  const numberOfIterations = 1000
-  const keyLength = 64
-  return pbkdf2Sync(
-    password,
-    salt,
-    numberOfIterations,
-    keyLength,
-    "sha512",
-  ).toString("base64")
-}
-
-export const compareHash = (hash: string, password: string, salt: string) =>
-  generateHash(password, salt) === hash
 
 export const createUser = async (
   { email, password }: UserInfo,
