@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import styled from "styled-components"
 
+// ================================== Begin Styles =========================================
+
 const StyledForm = styled.form`
   display: flex;
   flex: 1;
@@ -40,6 +42,8 @@ const FormVazaoArea = styled.div`
   background-color: #e4e4e4;
   border: 1px solid #336666;
   border-radius: 30px;
+  overflow-y: auto;
+  align-items: center;
 `
 
 const VazaoFieldsWrapper = styled.div`
@@ -92,7 +96,60 @@ const StyledImg = styled.img`
   border-radius: 50%;
 `
 
-const AdminDescargaForm = ({ selectedFile, setSelectedFile }) => {
+const VazaoCard = styled.div`
+  width: 90%;
+  background-color: #ffffff;
+  border-radius: 30px;
+  span {
+    font-size: 0.6rem;
+    margin: 8px;
+  }
+  margin: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  button {
+    color: red;
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    cursor: pointer;
+  }
+`
+
+const FormButton = styled.button`
+  padding: 0.2rem 0.5rem;
+  margin: 5px;
+  max-width: 10rem;
+  min-height: 40px;
+  background-color: #76fac7;
+  border-radius: 100px;
+  font-family: sans-serif;
+  font-weight: 500;
+  font-size: 0.7rem;
+  text-align: center;
+  color: #000000;
+  cursor: pointer;
+  :hover {
+    background-color: #6fdab1;
+  }
+`
+// ================================== End of Styles =========================================
+
+const AdminDescargaForm = ({
+  selectedFile,
+  setSelectedFile,
+  descargaName,
+  setDescargaName,
+  seconds,
+  setSeconds,
+  waterCost,
+  setWaterCost,
+  vazaoOptions = [],
+  setVazaoOptions,
+  handleDescargaFormSubmit,
+}) => {
   const [preview, setPreview] = useState<string | undefined>()
 
   // https://stackoverflow.com/questions/38049966/get-image-preview-before-uploading-in-react
@@ -127,7 +184,15 @@ const AdminDescargaForm = ({ selectedFile, setSelectedFile }) => {
         <FormFieldWrapper>
           <FormControl>
             <StyledLabel htmlFor="nome">Nome do Modelo</StyledLabel>
-            <StyledInput name="nome" type="text" />
+            <StyledInput
+              name="nome"
+              type="text"
+              required
+              value={descargaName}
+              onChange={(e) => {
+                setDescargaName(e.target.value)
+              }}
+            />
           </FormControl>
           <FormControl>
             <StyledLabel htmlFor="imagem">Imagem</StyledLabel>
@@ -147,23 +212,77 @@ const AdminDescargaForm = ({ selectedFile, setSelectedFile }) => {
           <VazaoFieldsWrapper>
             <FormControl>
               <StyledLabel htmlFor="seconds">Segundos Pressionados</StyledLabel>
-              <StyledInput name="seconds" type="number" shortened />
+              <StyledInput
+                name="seconds"
+                type="number"
+                shortened
+                value={seconds}
+                onChange={(e) => {
+                  setSeconds(e.target.value)
+                }}
+              />
             </FormControl>
             <FormControl>
               <StyledLabel htmlFor="water">Água gasta (em L)</StyledLabel>
-              <StyledInput name="water" type="number" shortened />
+              <StyledInput
+                name="water"
+                type="number"
+                shortened
+                value={waterCost}
+                onChange={(e) => {
+                  setWaterCost(e.target.value)
+                }}
+              />
             </FormControl>
           </VazaoFieldsWrapper>
           <VazaoAddButton
             onClick={(e) => {
-              console.log("Adicionou")
+              e.preventDefault()
+              if (seconds > 0 && waterCost > 0) {
+                const newVazao = {
+                  id: Date.now(),
+                  seconds: seconds,
+                  totalWaterCost: waterCost,
+                }
+
+                const newVazaoOptions = vazaoOptions
+                newVazaoOptions.push(newVazao)
+
+                setVazaoOptions(newVazaoOptions)
+                setSeconds(0)
+                setWaterCost(0)
+              }
             }}
           >
             Adicionar Vazão
           </VazaoAddButton>
-          <FormVazaoArea></FormVazaoArea>
+          <FormVazaoArea>
+            {vazaoOptions.map((vazao) => (
+              <VazaoCard key={vazao.id}>
+                <span>Tempo Pressionado: {vazao.seconds}s</span>
+                <span>Gasto de Água: {vazao.totalWaterCost}L</span>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setVazaoOptions(
+                      vazaoOptions.filter((v) => v.id != vazao.id),
+                    )
+                  }}
+                >
+                  x
+                </button>
+              </VazaoCard>
+            ))}
+          </FormVazaoArea>
         </FormVazaoWrapper>
       </FormBody>
+      <FormButton
+        onClick={(e) => {
+          handleDescargaFormSubmit(e)
+        }}
+      >
+        Cadastrar Modelo
+      </FormButton>
     </StyledForm>
   )
 }

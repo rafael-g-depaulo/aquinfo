@@ -4,6 +4,7 @@ import { useRouter } from "next/router"
 import { Header } from "../components/Header"
 import styled from "styled-components"
 import AdminDescargaForm from "../components/AdminDescargaForm"
+import { createDescarga, DescargaType } from "../api/createDescarga"
 
 // =================================== Begin Styles =====================================================
 
@@ -75,13 +76,37 @@ const SectionButton = styled.button<{ toggled?: boolean }>`
     background-color: ${(props) => (props.toggled ? "#550404" : "#00c9cc")};
   }
 `
-
+const SectionItemCard = styled.div`
+  /* width: 90%; */
+  background-color: #e3fff4;
+  border-radius: 30px;
+  span {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 12px;
+  }
+  margin: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  button {
+    color: red;
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    cursor: pointer;
+  }
+  >div span{
+    font-size: 0.7rem;
+  }
+`
 // =================================== End of Styles =====================================================
 
 const BackofficeFront = () => {
   const isLoggedIn = true // mocked
 
-  const [descargasData, setDescargasData] = useState([])
+  const [descargasData, setDescargasData] = useState<DescargaType[]>([])
   const [toggleDescargasForm, setToggleDescargasForm] = useState(false)
 
   const [chuveirosData, setChuveirosData] = useState([])
@@ -89,6 +114,10 @@ const BackofficeFront = () => {
 
   // descarga form values
   const [selectedFileDescarga, setSelectedFileDescarga] = useState()
+  const [descargaName, setDescargaName] = useState("")
+  const [seconds, setSeconds] = useState(0)
+  const [waterCost, setWaterCost] = useState(0)
+  const [vazaoOptions, setVazaoOptions] = useState([])
 
   // chuveiro form values
   const [selectedFileChuveiro, setSelectedFileChuveiro] = useState()
@@ -154,11 +183,15 @@ const BackofficeFront = () => {
     setChuveirosData(fetchedChuveiroData)
   }, [])
 
-  function clearDescargaForm(){
+  function clearDescargaForm() {
     setSelectedFileDescarga(undefined)
+    setDescargaName("")
+    setVazaoOptions([])
+    setSeconds(0)
+    setWaterCost(0)
   }
 
-  function clearChuveiroForm(){
+  function clearChuveiroForm() {
     setSelectedFileChuveiro(undefined)
   }
 
@@ -170,6 +203,26 @@ const BackofficeFront = () => {
   function handleToggleChuveirosFormClick() {
     clearChuveiroForm()
     setToggleChuveirosForm(!toggleChuveirosForm)
+  }
+
+  async function handleDescargaFormSubmit(e) {
+    e.preventDefault()
+    if (descargaName != "") {
+      const newDescarga: DescargaType = {
+        name: descargaName,
+        image: selectedFileDescarga,
+        type: vazaoOptions,
+        id: Date.now(),
+      }
+
+      console.log(newDescarga)
+
+      createDescarga(newDescarga).then(() => {
+        setDescargasData([...descargasData, newDescarga])
+        clearDescargaForm()
+        setToggleDescargasForm(!toggleDescargasForm)
+      })
+    }
   }
 
   return (
@@ -197,13 +250,36 @@ const BackofficeFront = () => {
                 <AdminDescargaForm
                   selectedFile={selectedFileDescarga}
                   setSelectedFile={setSelectedFileDescarga}
+                  descargaName={descargaName}
+                  setDescargaName={setDescargaName}
+                  seconds={seconds}
+                  setSeconds={setSeconds}
+                  waterCost={waterCost}
+                  setWaterCost={setWaterCost}
+                  vazaoOptions={vazaoOptions}
+                  setVazaoOptions={setVazaoOptions}
+                  handleDescargaFormSubmit={handleDescargaFormSubmit}
                 />
               )}
 
               {descargasData.map((descarga) => (
-                <div key={descarga.id}>
-                  <p>{descarga.name}</p>
-                </div>
+                <SectionItemCard key={descarga.id}>
+                  <span>{descarga.name}</span>
+                  <div>
+                    <span>{descarga.type.length} opções de vazão</span>
+                  </div>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault()
+                      // delete from server
+                      setDescargasData(
+                        descargasData.filter((d) => d.id != descarga.id),
+                      )
+                    }}
+                  >
+                    x
+                  </button>
+                </SectionItemCard>
               ))}
             </div>
           </Section>
@@ -223,9 +299,20 @@ const BackofficeFront = () => {
               </ModelTitleContainer>
 
               {chuveirosData.map((chuveiro) => (
-                <div key={chuveiro.id}>
-                  <p>{chuveiro.name}</p>
-                </div>
+                <SectionItemCard key={chuveiro.id}>
+                  <span>{chuveiro.name}</span>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault()
+                      // delete from server
+                      setChuveirosData(
+                        chuveirosData.filter((c) => c.id != chuveiro.id),
+                      )
+                    }}
+                  >
+                    x
+                  </button>
+                </SectionItemCard>
               ))}
             </div>
           </Section>

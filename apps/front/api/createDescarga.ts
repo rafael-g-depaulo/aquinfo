@@ -6,13 +6,14 @@ type DescargaVazaoOptionsType = {
 }
 
 export type DescargaType = {
+  id?: number,
   name: string,
   type: DescargaVazaoOptionsType[],
   image: File | null
 }
 
 export const createDescarga = (descarga: DescargaType) => {
-    return Promise.resolve({id: 123, name: "Dual Flush", type: [], image: null});
+    return Promise.resolve({id: Date.now(), name: descarga.name, type: descarga.type, image: descarga.image});
 }
 
 export const useCreateDescarga = () => {
