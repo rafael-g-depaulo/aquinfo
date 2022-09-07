@@ -5,6 +5,8 @@ import { Header } from "../components/Header"
 import styled from "styled-components"
 import AdminDescargaForm from "../components/AdminDescargaForm"
 import { createDescarga, DescargaType } from "../api/createDescarga"
+import AdminChuveiroForm from "../components/AdminChuveiroForm"
+import { ChuveiroType, createChuveiro } from "../api/createChuveiro"
 
 // =================================== Begin Styles =====================================================
 
@@ -97,7 +99,7 @@ const SectionItemCard = styled.div`
     text-align: center;
     cursor: pointer;
   }
-  >div span{
+  > div span {
     font-size: 0.7rem;
   }
 `
@@ -121,6 +123,8 @@ const BackofficeFront = () => {
 
   // chuveiro form values
   const [selectedFileChuveiro, setSelectedFileChuveiro] = useState()
+  const [chuveiroName, setChuveiroName] = useState("")
+  const [waterCostPerMinute, setWaterCostPerMinute] = useState(0)
 
   const router = useRouter()
 
@@ -193,6 +197,8 @@ const BackofficeFront = () => {
 
   function clearChuveiroForm() {
     setSelectedFileChuveiro(undefined)
+    setChuveiroName("")
+    setWaterCostPerMinute(0)
   }
 
   function handleToggleDescargasFormClick() {
@@ -221,6 +227,26 @@ const BackofficeFront = () => {
         setDescargasData([...descargasData, newDescarga])
         clearDescargaForm()
         setToggleDescargasForm(!toggleDescargasForm)
+      })
+    }
+  }
+
+  async function handleChuveiroFormSubmit(e) {
+    e.preventDefault()
+    if (chuveiroName != "" && waterCostPerMinute > 0) {
+      const newChuveiro: ChuveiroType = {
+        name: chuveiroName,
+        image: selectedFileChuveiro,
+        waterPerMinute: waterCostPerMinute,
+        id: Date.now(),
+      }
+
+      console.log(newChuveiro)
+
+      createChuveiro(newChuveiro).then(() => {
+        setChuveirosData([...chuveirosData, newChuveiro])
+        clearChuveiroForm()
+        setToggleChuveirosForm(!toggleChuveirosForm)
       })
     }
   }
@@ -297,6 +323,18 @@ const BackofficeFront = () => {
                     : "Fechar Formulário"}
                 </SectionButton>
               </ModelTitleContainer>
+
+              {toggleChuveirosForm && (
+                <AdminChuveiroForm
+                  selectedFile={selectedFileChuveiro}
+                  setSelectedFile={setSelectedFileChuveiro}
+                  chuveiroName={chuveiroName}
+                  setChuveiroName={setChuveiroName}
+                  waterCostPerMinute={waterCostPerMinute}
+                  setWaterCostPerMinute={setWaterCostPerMinute}
+                  handleChuveiroFormSubmit={handleChuveiroFormSubmit}
+                />
+              )}
 
               {chuveirosData.map((chuveiro) => (
                 <SectionItemCard key={chuveiro.id}>
