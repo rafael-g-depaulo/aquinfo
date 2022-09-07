@@ -29,27 +29,6 @@ const FormFieldWrapper = styled.div`
   flex: 1;
 `
 
-const FormVazaoWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-`
-
-const FormVazaoArea = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 150px;
-  background-color: #e4e4e4;
-  border: 1px solid #336666;
-  border-radius: 30px;
-  overflow-y: auto;
-  align-items: center;
-`
-
-const VazaoFieldsWrapper = styled.div`
-  display: flex;
-`
-
 const FormControl = styled.div`
   display: flex;
   flex-direction: column;
@@ -69,24 +48,6 @@ const StyledInput = styled.input<{ shortened?: boolean }>`
   margin-top: 5px;
 `
 
-const VazaoAddButton = styled.button`
-  padding: 0.2rem 0.5rem;
-  margin: 5px;
-  width: 5rem;
-  min-height: 20px;
-  background-color: #336666;
-  border-radius: 100px;
-  font-family: sans-serif;
-  font-weight: 500;
-  font-size: 0.7rem;
-  text-align: center;
-  color: #ffffff;
-  cursor: pointer;
-  :hover {
-    background-color: #295757;
-  }
-`
-
 const StyledImg = styled.img`
   display: flex;
   margin: 5px 0;
@@ -94,28 +55,6 @@ const StyledImg = styled.img`
   height: 130px;
   border: 1px solid #336666;
   border-radius: 50%;
-`
-
-const VazaoCard = styled.div`
-  width: 90%;
-  background-color: #ffffff;
-  border-radius: 30px;
-  span {
-    font-size: 0.6rem;
-    margin: 8px;
-  }
-  margin: 4px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  button {
-    color: red;
-    background-color: transparent;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    cursor: pointer;
-  }
 `
 
 const FormButton = styled.button`
