@@ -3,6 +3,8 @@ import { Header } from "../components/Header"
 import styled from "styled-components"
 import { ChuveiroType } from "../api/createChuveiro"
 import { DescargaType } from "../api/createDescarga"
+import CalculatorIcon from "../assets/calculator_icon.svg"
+import Image from "next/image"
 
 // =================================== Begin Styles =====================================================
 const Main = styled.main`
@@ -38,7 +40,11 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin: 2rem 0;
   > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     align-self: center;
     width: 100%;
   }
@@ -52,6 +58,23 @@ const Paragraph = styled.p<{ bold?: boolean }>`
   line-height: 180%;
 `
 
+const Button = styled.button`
+  margin: 1.5rem 1rem;
+  padding: 0 1rem;
+  width: 50%;
+  height: 40px;
+  background-color: #76fac7;
+  border-radius: 100px;
+  font-family: sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  color: #000000;
+  cursor: pointer;
+  :hover {
+    background-color: #53d8a5;
+  }
+`
 // =================================== End of Styles =====================================================
 
 const CalculadoraFront = () => {
@@ -129,24 +152,30 @@ const CalculadoraFront = () => {
               </Paragraph>
             </div>
             <div style={{ flex: 1 }}>
-              <span>SVG</span>
+              <Image
+                src={CalculatorIcon}
+                alt="Ícone Calculadora"
+                width="250px"
+                height="250px"
+              />
             </div>
           </Wrapper>
           <Wrapper>
-            <div style={{ flex: 2 }}>
-              <Paragraph bold>
-                Bem-vindo a calculadora de consumo de água do Aquinfo!
-              </Paragraph>
-              <Paragraph>
-                Aqui você pode registrar o seus usos diários de água e ver o
-                quanto você está realmente consumindo. Além disso, mostramos o
-                resultado convertido em reais de acordo com os dados mais
-                recentes de custo de água na sua cidade, exibindo um preço
-                diário, mensal e anual.
-              </Paragraph>
+            <div style={{ flex: 1 }}>
+              <span>consumo List component</span>
             </div>
             <div style={{ flex: 1 }}>
-              <span>SVG</span>
+              <Paragraph>
+                A tabela ao lado indica os equipamentos que utilizam água
+                informados para o cálculo do seu consumo.{" "}
+              </Paragraph>
+              <Paragraph>
+                Para adicionar um novo equipamento, toque no botão “+” dentro da
+                tabela e preencha as informações do modal que aparecerá na tela.
+                Ao terminar de registrar seu consumo, toque no botão “Calcular
+                Resultados” abaixo para exibir seus resultados.{" "}
+              </Paragraph>
+              <Button>CALCULAR RESULTADOS</Button>
             </div>
           </Wrapper>
         </Container>
