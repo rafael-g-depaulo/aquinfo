@@ -49,7 +49,14 @@ const Value = styled.span`
     margin: 0;
   }
 `
-const ListItem = ({ type, modelName = "Model XPTO nome grande" }) => {
+const ListItem = ({
+  type,
+  modelName = "Model XPTO nome grande",
+  descargaType = { seconds: 0, totalWaterCost: 0 },
+  timesPressed = 0,
+  waterPerMinute = 0,
+  minutesPressed = 0,
+}) => {
   return (
     <>
       <Body>
@@ -64,15 +71,15 @@ const ListItem = ({ type, modelName = "Model XPTO nome grande" }) => {
           {type === 0 && (
             <>
               <Label>Ligado Por</Label>
-              <Value>{110} min</Value>
+              <Value>{minutesPressed} min</Value>
             </>
           )}
           {type === 1 && (
             <>
               <Label>Acionado</Label>
-              <Value>{7} vezes</Value>
+              <Value>{timesPressed} vezes</Value>
               <Label>Durante</Label>
-              <Value>{5} segs</Value>
+              <Value>{descargaType.seconds} segs</Value>
             </>
           )}
         </div>

@@ -57,26 +57,50 @@ const ListScroll = styled.div`
 `
 // =================================== End of Styles =====================================================
 
-const CalculatorList = () => {
+const CalculatorList = ({ consumoList = [] }) => {
   return (
     <>
       <Body>
         <ListHeader>
           <HeaderWrapper>
             <Title>CONSUMOS INFORMADOS</Title>
-            <Label>Total: {2}</Label>
+            <Label>Total: {consumoList.length}</Label>
           </HeaderWrapper>
-          <FontAwesomeIcon icon={faPlus} color="#0081CF" size="2x"/>
+          <FontAwesomeIcon icon={faPlus} color="#0081CF" size="2x" />
         </ListHeader>
         <ListScroll>
-          <ListItem type={0}/>
-          <ListItem type={1}/>
-          <ListItem type={0}/>
-          <ListItem type={1}/>
-          <ListItem type={0}/>
-          <ListItem type={1}/>
-          <ListItem type={0}/>
-          <ListItem type={1}/>
+          {consumoList.length <= 0 && <span>Adicione um consumo</span>}
+          {consumoList.map((c) => {
+            let type = 0
+            try {
+              if (c.timesPressed > 0) {
+                type = 1
+              }
+            } catch (error) {
+              type = 0
+            }
+            if (type === 0) {
+              return (
+                <ListItem
+                  type={0}
+                  key={c.id}
+                  modelName={c.name}
+                  minutesPressed={c.minutesPressed}
+                />
+              )
+            }
+            if (type === 1) {
+              return (
+                <ListItem
+                  type={1}
+                  key={c.id}
+                  modelName={c.name}
+                  descargaType={c.type[0]}
+                  timesPressed={c.timesPressed}
+                />
+              )
+            }
+          })}
         </ListScroll>
       </Body>
     </>

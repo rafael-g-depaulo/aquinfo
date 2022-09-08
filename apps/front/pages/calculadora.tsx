@@ -16,6 +16,7 @@ const Main = styled.main`
   min-height: 100vh;
   /* flex: 1; */
   padding: 30px 0;
+  scroll-behavior: smooth;
 `
 const PageTitle = styled.h1`
   padding: 0;
@@ -82,8 +83,12 @@ const Button = styled.button`
 
 const CalculadoraFront = () => {
   const [descargasData, setDescargasData] = useState<DescargaType[]>([])
-
   const [chuveirosData, setChuveirosData] = useState<ChuveiroType[]>([])
+
+  const [consumoList, setConsumoList] = useState([])
+
+  const [waterSpent, setWaterSpent] = useState(0)
+  const [waterCost, setWaterCost] = useState(0)
 
   // change page name
   useEffect(() => {
@@ -135,6 +140,69 @@ const CalculadoraFront = () => {
     setChuveirosData(fetchedChuveiroData)
   }, [])
 
+  //mocked consumo List
+  useEffect(() => {
+    setConsumoList([
+      {
+        id: 1,
+        name: "Válvula",
+        type: [
+          { seconds: 3, totalWaterCost: 5 },
+          { seconds: 7, totalWaterCost: 15 },
+        ],
+        image: null,
+        timesPressed: 5,
+      },
+      {
+        id: 2,
+        name: "Elétrico",
+        waterPerMinute: 4,
+        image: null,
+        minutesPressed: 110,
+      },
+      {
+        id: 3,
+        name: "Caixa Acoplada",
+        type: [
+          { seconds: 5, totalWaterCost: 10 },
+          { seconds: 8, totalWaterCost: 20 },
+        ],
+        image: null,
+        timesPressed: 9,
+      },
+    ])
+  }, [])
+
+  useEffect(() => {
+    console.log(waterSpent)
+  }, [waterSpent, waterCost])
+
+  function handleConsumptionCalculation() {
+    let totalWaterSpent = 0
+    // let totalCost = 0
+
+    consumoList.forEach((c) => {
+      let type = 0
+      try {
+        if (c.timesPressed > 0) {
+          type = 1
+        }
+      } catch (error) {
+        type = 0
+      }
+      if (type === 0) {
+        // consumo banho
+        totalWaterSpent += c.waterPerMinute * c.minutesPressed
+      }
+      if (type === 1) {
+        //consumo descarga (isso vai bugar pq tem que poder escolher qual valor do array mandar)
+        totalWaterSpent += c.type[0].totalWaterCost * c.timesPressed
+      }
+    })
+
+    setWaterSpent(totalWaterSpent)
+  }
+
   return (
     <>
       <Header></Header>
@@ -165,20 +233,26 @@ const CalculadoraFront = () => {
           </Wrapper>
           <Wrapper>
             <div style={{ flex: 1, padding: "1rem 3rem 1rem 0" }}>
-              <CalculatorList />
+              <CalculatorList consumoList={consumoList} />
             </div>
             <div style={{ flex: 1 }}>
               <Paragraph>
                 A tabela ao lado indica os equipamentos que utilizam água
-                informados para o cálculo do seu consumo.{" "}
+                informados para o cálculo do seu consumo.
               </Paragraph>
               <Paragraph>
                 Para adicionar um novo equipamento, toque no botão “+” dentro da
                 tabela e preencha as informações do modal que aparecerá na tela.
                 Ao terminar de registrar seu consumo, toque no botão “Calcular
-                Resultados” abaixo para exibir seus resultados.{" "}
+                Resultados” abaixo para exibir seus resultados.
               </Paragraph>
-              <Button>CALCULAR RESULTADOS</Button>
+              <Button
+                onClick={() => {
+                  handleConsumptionCalculation()
+                }}
+              >
+                CALCULAR RESULTADOS
+              </Button>
             </div>
           </Wrapper>
         </Container>

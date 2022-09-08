@@ -9,6 +9,7 @@ export type DescargaType = {
   id?: number,
   name: string,
   type: DescargaVazaoOptionsType[],
+  timesPressed?: number,
   image: File | null
 }
 

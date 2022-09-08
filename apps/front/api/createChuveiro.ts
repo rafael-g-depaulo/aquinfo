@@ -4,6 +4,7 @@ export type ChuveiroType = {
   id?: number,
   name: string,
   waterPerMinute: number,
+  minutesPressed?: number,
   image: File | null
 }
 
