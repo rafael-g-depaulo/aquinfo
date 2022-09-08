@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "back": "apps/back",
+    "business-logic": "libs/business-logic",
     "db": "libs/db",
     "front": "apps/front",
     "front-e2e": "apps/front-e2e"
