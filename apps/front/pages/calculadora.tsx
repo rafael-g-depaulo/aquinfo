@@ -8,15 +8,48 @@ import { DescargaType } from "../api/createDescarga"
 const Main = styled.main`
   display: flex;
   flex-direction: column;
-  flex: 1;
-  margin: 30px 5%;
+  background-color: #f4ffff;
+  width: 100vw;
+  min-height: 100vh;
+  /* flex: 1; */
+  padding: 30px 0;
 `
 const PageTitle = styled.h1`
   padding: 0;
-  margin: 0;
-  font-size: 2rem;
+  margin: 0 6% 2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: #336666;
+`
+
+const Container = styled.section`
+  display: flex;
+  flex-direction: column;
+  background-color: #a9dbf9;
+  width: 95%;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  padding: 60px;
+  padding-left: 7%;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+`
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  > div {
+    align-self: center;
+    width: 100%;
+  }
+`
+
+const Paragraph = styled.p<{ bold?: boolean }>`
+  font-weight: ${(props) => (props.bold ? "bold" : "normal")};
+  font-size: 1rem;
+  margin: 1.5rem 1rem;
+  font-family: sans-serif;
+  line-height: 180%;
 `
 
 // =================================== End of Styles =====================================================
@@ -81,16 +114,42 @@ const CalculadoraFront = () => {
       <Header></Header>
       <Main>
         <PageTitle>Calculadora</PageTitle>
-        <div>
-          <p>Bem-vindo a calculadora de consumo de água do Aquinfo!</p>
-          <p>
-            Aqui você pode registrar o seus usos diários de água e ver o quanto
-            você está realmente consumindo. Além disso, mostramos o resultado
-            convertido em reais de acordo com os dados mais recentes de custo de
-            água na sua cidade, exibindo um preço diário, mensal e anual.
-          </p>
-          
-        </div>
+        <Container>
+          <Wrapper>
+            <div style={{ flex: 2 }}>
+              <Paragraph bold>
+                Bem-vindo a calculadora de consumo de água do Aquinfo!
+              </Paragraph>
+              <Paragraph>
+                Aqui você pode registrar o seus usos diários de água e ver o
+                quanto você está realmente consumindo. Além disso, mostramos o
+                resultado convertido em reais de acordo com os dados mais
+                recentes de custo de água na sua cidade, exibindo um preço
+                diário, mensal e anual.
+              </Paragraph>
+            </div>
+            <div style={{ flex: 1 }}>
+              <span>SVG</span>
+            </div>
+          </Wrapper>
+          <Wrapper>
+            <div style={{ flex: 2 }}>
+              <Paragraph bold>
+                Bem-vindo a calculadora de consumo de água do Aquinfo!
+              </Paragraph>
+              <Paragraph>
+                Aqui você pode registrar o seus usos diários de água e ver o
+                quanto você está realmente consumindo. Além disso, mostramos o
+                resultado convertido em reais de acordo com os dados mais
+                recentes de custo de água na sua cidade, exibindo um preço
+                diário, mensal e anual.
+              </Paragraph>
+            </div>
+            <div style={{ flex: 1 }}>
+              <span>SVG</span>
+            </div>
+          </Wrapper>
+        </Container>
       </Main>
     </>
   )
