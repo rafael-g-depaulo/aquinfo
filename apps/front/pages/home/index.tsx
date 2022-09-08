@@ -1,13 +1,14 @@
-import { api } from "../../api"
 import styled from "styled-components"
-import { useIsLoggedIn } from "../../api/isLoggedIn"
-import { Header } from "apps/front/components/Header"
-import home from "./assets/home.jpg"
-import adasa from "./assets/adasa.png"
-import caesb from "./assets/caesb.png"
-import calculator from "./assets/calculator.png"
-import shower from "./assets/shower.png"
-import newspaper from "./assets/newspaper.png"
+// import { useIsLoggedIn } from "../../api/isLoggedIn"
+import { Header } from "../../components/Header"
+import Image from "next/image"
+
+const home = "/assets/home.jpg"
+const adasa = "/assets/adasa.png"
+const caesb = "/assets/caesb.png"
+const calculator = "/assets/calculator.png"
+const shower = "/assets/shower.png"
+const newspaper = "/assets/newspaper.png"
 
 const StyledHomePage = styled.div``
 
@@ -161,7 +162,7 @@ const StyledFunctionalityText = styled.div`
 `
 
 export function HomePage() {
-  const isLoggedIn = useIsLoggedIn()
+  // const isLoggedIn = useIsLoggedIn()
   return (
     <StyledHomePage>
       <Header />
@@ -181,7 +182,7 @@ export function HomePage() {
           </StyledTextContainer>
         </StyledTopSectionTextBox>
         <StyledTopSectionImageBox>
-          <img src={home.src}></img>
+          <Image width="350" height="350" src={home} alt=""></Image>
         </StyledTopSectionImageBox>
       </StyledTopSection>
       <StyledMidSection>
@@ -211,25 +212,33 @@ export function HomePage() {
         </StyledBttomSectionLeft>
         <StyledBottomSectionRight>
           <StyledAuthority>
-            <img src={adasa.src}></img>
+            <Image width="100" height="100" src={adasa} alt=""></Image>
             <span>Adasa</span>
             <span>(61) 3961-5000</span>
-            <a href="https://www.adasa.df.gov.br/" target="_blank">
+            <a
+              href="https://www.adasa.df.gov.br/"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
               https://www.adasa.df.gov.br/
             </a>
           </StyledAuthority>
           <StyledAuthority>
-            <img src={caesb.src}></img>
+            <Image width="100" height="100" src={caesb} alt=""></Image>
             <span>Caesb</span>
             <span>(61) 98480-5115</span>
-            <a href="https://www.caesb.df.gov.br/" target="_blank">
+            <a
+              href="https://www.caesb.df.gov.br/"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
               https://www.caesb.df.gov.br/
             </a>
           </StyledAuthority>
         </StyledBottomSectionRight>
       </StyledBottomSection>
       <StyledFunctionality>
-        <img src={calculator.src}></img>
+        <Image width="100" height="100" alt="" src={calculator}></Image>
         <StyledFunctionalityText>
           <h1>Calculadora</h1>
           <span>
@@ -238,14 +247,14 @@ export function HomePage() {
         </StyledFunctionalityText>
       </StyledFunctionality>
       <StyledFunctionality>
-        <img src={shower.src}></img>
+        <Image width="100" height="100" alt="" src={shower}></Image>
         <StyledFunctionalityText>
           <h1>Dicas</h1>
           <span>Veja aqui maneiras de economizar água</span>
         </StyledFunctionalityText>
       </StyledFunctionality>
       <StyledFunctionality>
-        <img src={newspaper.src}></img>
+        <Image width="100" height="100" alt="" src={newspaper}></Image>
         <StyledFunctionalityText>
           <h1>Notícias</h1>
           <span>Veja aqui notícias sobre a situação hídrica no DF</span>
