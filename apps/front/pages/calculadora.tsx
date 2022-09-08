@@ -5,6 +5,7 @@ import { ChuveiroType } from "../api/createChuveiro"
 import { DescargaType } from "../api/createDescarga"
 import CalculatorIcon from "../assets/calculator_icon.svg"
 import Image from "next/image"
+import CalculatorList from "../components/CalculatorList"
 
 // =================================== Begin Styles =====================================================
 const Main = styled.main`
@@ -45,8 +46,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-self: center;
-    width: 100%;
+    align-self: stretch;
   }
 `
 
@@ -70,10 +70,13 @@ const Button = styled.button`
   font-size: 1rem;
   text-align: center;
   color: #000000;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
   cursor: pointer;
   :hover {
     background-color: #53d8a5;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   }
+  transition-duration: 0.3s;
 `
 // =================================== End of Styles =====================================================
 
@@ -161,8 +164,8 @@ const CalculadoraFront = () => {
             </div>
           </Wrapper>
           <Wrapper>
-            <div style={{ flex: 1 }}>
-              <span>consumo List component</span>
+            <div style={{ flex: 1, padding: "1rem 3rem 1rem 0" }}>
+              <CalculatorList />
             </div>
             <div style={{ flex: 1 }}>
               <Paragraph>
