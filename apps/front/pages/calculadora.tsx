@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Header } from "../components/Header"
 import styled from "styled-components"
-import { ChuveiroType } from "../api/createChuveiro"
+import { ChuveiroType, gastoPorLitroPorMês } from "../api/createChuveiro"
 import { DescargaType } from "../api/createDescarga"
 import CalculatorIcon from "../assets/calculator_icon.svg"
 import Image from "next/image"
 import CalculatorList from "../components/CalculatorList"
+import ResultsCard from "../components/ResultsCard"
 
 // =================================== Begin Styles =====================================================
 const Main = styled.main`
@@ -14,7 +15,6 @@ const Main = styled.main`
   background-color: #f4ffff;
   width: 100vw;
   min-height: 100vh;
-  /* flex: 1; */
   padding: 30px 0;
   scroll-behavior: smooth;
 `
@@ -82,13 +82,17 @@ const Button = styled.button`
 // =================================== End of Styles =====================================================
 
 const CalculadoraFront = () => {
+  const resultsRef = useRef(null)
+
   const [descargasData, setDescargasData] = useState<DescargaType[]>([])
   const [chuveirosData, setChuveirosData] = useState<ChuveiroType[]>([])
 
   const [consumoList, setConsumoList] = useState([])
 
   const [waterSpent, setWaterSpent] = useState(0)
-  const [waterCost, setWaterCost] = useState(0)
+  const [waterCost, setWaterCost] = useState(0.0)
+
+  const [showResults, setShowResults] = useState(false)
 
   // change page name
   useEffect(() => {
@@ -173,13 +177,14 @@ const CalculadoraFront = () => {
     ])
   }, [])
 
+  // scroll into view
   useEffect(() => {
-    console.log(waterSpent)
-  }, [waterSpent, waterCost])
+    resultsRef.current.scrollIntoView()
+  }, [showResults])
 
   function handleConsumptionCalculation() {
     let totalWaterSpent = 0
-    // let totalCost = 0
+    let totalCost = 0.0
 
     consumoList.forEach((c) => {
       let type = 0
@@ -200,7 +205,12 @@ const CalculadoraFront = () => {
       }
     })
 
+    totalCost = gastoPorLitroPorMês(totalWaterSpent * 30)
+
+    setWaterCost(totalCost)
     setWaterSpent(totalWaterSpent)
+
+    setShowResults(true)
   }
 
   return (
@@ -256,6 +266,12 @@ const CalculadoraFront = () => {
             </div>
           </Wrapper>
         </Container>
+        <div ref={resultsRef}></div>
+        {showResults && (
+          <>
+            <ResultsCard waterCost={waterCost} waterSpent={waterSpent} />
+          </>
+        )}
       </Main>
     </>
   )
