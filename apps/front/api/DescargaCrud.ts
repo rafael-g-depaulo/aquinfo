@@ -1,141 +1,141 @@
-import { useMutation } from "react-query"
-import { api } from "."
-import axios from "axios"
+// import { useMutation } from "react-query"
+// import { api } from "."
+// import axios from "axios"
 
-//post
+// //post
 
-type Chuveiro = {
-    Modelo : string;
-    Consumo: Number;
-  };
+// type Chuveiro = {
+//     Modelo : string;
+//     Consumo: Number;
+//   };
 
-  type Chuveiro_get = {
-    Id : Number;
-    Modelo : string;
-    Consumo: Number;
-  };
-  
-  async function PostChuveiro() {
-    try {
+//   type Chuveiro_get = {
+//     Id : Number;
+//     Modelo : string;
+//     Consumo: Number;
+//   };
 
-      const { data } = await axios.post<Chuveiro>(
-        'https://reqres.in/api/users', //rota?
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-        },
-      );
-  
-      console.log(JSON.stringify(data, null, 4));
-  
-      return data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.log('error message: ', error.message);
-        return error.message;
-      } else {
-        console.log('unexpected error: ', error);
-        return 'An unexpected error occurred';
-      }
-    }
-  }
-  
-  PostChuveiro();
+//   async function PostChuveiro() {
+//     try {
 
-//get
+//       const { data } = await axios.post<Chuveiro>(
+//         'https://reqres.in/api/users', //rota?
+//         {
+//           headers: {
+//             'Content-Type': 'application/json',
+//             Accept: 'application/json',
+//           },
+//         },
+//       );
 
-type GetChuveiroResponse = {
-    data: Chuveiro_get[];
-  };
-  
-  async function getChuveiro() {
-    try {
-      const { data, status } = await axios.get<GetChuveiroResponse>(
-        'https://reqres.in/api/users',//rota?
-        {
-          headers: {
-            Accept: 'application/json',
-          },
-        },
-      );
-  
-      console.log(JSON.stringify(data, null, 4));
-      console.log('response status is: ', status);
-  
-      return data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.log('error message: ', error.message);
-        return error.message;
-      } else {
-        console.log('unexpected error: ', error);
-        return 'An unexpected error occurred';
-      }
-    }
-  }
-  
-  getChuveiro();
-//delete
+//       console.log(JSON.stringify(data, null, 4));
 
-type DeleteChuveiroResponse = '';
+//       return data;
+//     } catch (error) {
+//       if (axios.isAxiosError(error)) {
+//         console.log('error message: ', error.message);
+//         return error.message;
+//       } else {
+//         console.log('unexpected error: ', error);
+//         return 'An unexpected error occurred';
+//       }
+//     }
+//   }
 
-async function deletechuveiro() {
-  try {
-    const { data, status } = await axios.delete<DeleteChuveiroResponse>(
-      'https://reqres.in/api/users/2', //rota
-      {
-        headers: {
-          Accept: 'application/json',
-        },
-      },
-    );
+//   PostChuveiro();
 
-    console.log('response is: ', data);
-    console.log('response status is: ', status);
+// //get
 
-    return data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.log('error message: ', error.message);
-      return error.message;
-    } else {
-      console.log('unexpected error: ', error);
-      return 'An unexpected error occurred';
-    }
-  }
-}
+// type GetChuveiroResponse = {
+//     data: Chuveiro_get[];
+//   };
 
-deletechuveiro();
+//   async function getChuveiro() {
+//     try {
+//       const { data, status } = await axios.get<GetChuveiroResponse>(
+//         'https://reqres.in/api/users',//rota?
+//         {
+//           headers: {
+//             Accept: 'application/json',
+//           },
+//         },
+//       );
 
-//put 
-  
-  async function updateChuveiro() {
-    try {
-      const { data } = await axios.put<Chuveiro>(
-        'https://reqres.in/api/users/2', //rota
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-        },
-      );
-  
-      console.log(JSON.stringify(data, null, 4));
-  
-      return data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.log('error message: ', error.message);
-        return error.message;
-      } else {
-        console.log('unexpected error: ', error);
-        return 'An unexpected error occurred';
-      }
-    }
-  }
-  
-  updateChuveiro();
+//       console.log(JSON.stringify(data, null, 4));
+//       console.log('response status is: ', status);
 
+//       return data;
+//     } catch (error) {
+//       if (axios.isAxiosError(error)) {
+//         console.log('error message: ', error.message);
+//         return error.message;
+//       } else {
+//         console.log('unexpected error: ', error);
+//         return 'An unexpected error occurred';
+//       }
+//     }
+//   }
+
+//   getChuveiro();
+// //delete
+
+// type DeleteChuveiroResponse = '';
+
+// async function deletechuveiro() {
+//   try {
+//     const { data, status } = await axios.delete<DeleteChuveiroResponse>(
+//       'https://reqres.in/api/users/2', //rota
+//       {
+//         headers: {
+//           Accept: 'application/json',
+//         },
+//       },
+//     );
+
+//     console.log('response is: ', data);
+//     console.log('response status is: ', status);
+
+//     return data;
+//   } catch (error) {
+//     if (axios.isAxiosError(error)) {
+//       console.log('error message: ', error.message);
+//       return error.message;
+//     } else {
+//       console.log('unexpected error: ', error);
+//       return 'An unexpected error occurred';
+//     }
+//   }
+// }
+
+// deletechuveiro();
+
+// //put
+
+//   async function updateChuveiro() {
+//     try {
+//       const { data } = await axios.put<Chuveiro>(
+//         'https://reqres.in/api/users/2', //rota
+//         {
+//           headers: {
+//             'Content-Type': 'application/json',
+//             Accept: 'application/json',
+//           },
+//         },
+//       );
+
+//       console.log(JSON.stringify(data, null, 4));
+
+//       return data;
+//     } catch (error) {
+//       if (axios.isAxiosError(error)) {
+//         console.log('error message: ', error.message);
+//         return error.message;
+//       } else {
+//         console.log('unexpected error: ', error);
+//         return 'An unexpected error occurred';
+//       }
+//     }
+//   }
+
+//   updateChuveiro();
+export {}
