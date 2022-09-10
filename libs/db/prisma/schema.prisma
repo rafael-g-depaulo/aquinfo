@@ -21,3 +21,13 @@ model User {
   salt      String
   deletedAt DateTime?
 }
+
+model FlushSystem {
+  id         Int  @id @default(autoincrement())
+  flushTypes Json
+}
+
+model ShowerModel {
+  id                   Int   @id @default(autoincrement())
+  consumptionPerMinute Float
+}
