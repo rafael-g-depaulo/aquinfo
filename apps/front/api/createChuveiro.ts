@@ -1,16 +1,15 @@
+import { ShowerEntity } from "@water-calc"
 import { useMutation } from "react-query"
 
-export type ChuveiroType = {
-  id?: number,
-  name: string,
-  waterPerMinute: number,
-  image: File | null
-}
-
-export const createChuveiro = (chuveiro: ChuveiroType) => {
-    return Promise.resolve({id: Date.now(), name: chuveiro.name, waterPerMinute: chuveiro.waterPerMinute, image: chuveiro.image});
+export const createChuveiro = (chuveiro: ShowerEntity) => {
+  return Promise.resolve({
+    id: Date.now(),
+    name: chuveiro.name,
+    waterPerMinute: chuveiro.waterPerMinute,
+    image: chuveiro.image,
+  })
 }
 
 export const useCreateChuveiro = () => {
-    return useMutation(createChuveiro);
+  return useMutation(createChuveiro)
 }
