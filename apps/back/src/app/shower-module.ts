@@ -11,12 +11,12 @@ interface ShowerDeps {
 export const ShowerModule = ({ db }: ShowerDeps) => {
   return Router()
     .get("/", (req, res) => {
-      db.flushSystem.findMany().then((books) => {
+      db.showerModel.findMany().then((books) => {
         res.json([...books])
       })
     })
     .get("/:id", (req, res) => {
-      db.flushSystem
+      db.showerModel
         .findFirst({
           where: {
             id: parseInt(req.params.id),

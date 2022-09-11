@@ -4,13 +4,13 @@ import { useRouter } from "next/router"
 import { Header } from "../components/Header"
 import styled from "styled-components"
 import AdminDescargaForm from "../components/AdminDescargaForm"
-import {
-  createDescarga,
-  DescargaType,
-  useDescargas,
-} from "../api/createDescarga"
+import { createDescarga, useDescargas } from "../api/createDescarga"
 import AdminChuveiroForm from "../components/AdminChuveiroForm"
 import { ChuveiroType, createChuveiro } from "../api/createChuveiro"
+import { useShower, useShowers } from "../api/shower"
+import { FlushSystemEntity } from "@water-calc"
+import { useIsLoggedIn } from "../api/isLoggedIn"
+import { useUserToken } from "../contexts/UserToken"
 
 // =================================== Begin Styles =====================================================
 
@@ -110,11 +110,14 @@ const SectionItemCard = styled.div`
 // =================================== End of Styles =====================================================
 
 const BackofficeFront = () => {
-  const isLoggedIn = true // mocked
+  const isLoggedIn = true
+
+  const { token } = useUserToken()
 
   const { data: descargasData } = useDescargas()
   const [toggleDescargasForm, setToggleDescargasForm] = useState(false)
 
+  const { data: chuveirosData } = useShowers()
   const [toggleChuveirosForm, setToggleChuveirosForm] = useState(false)
 
   // descarga form values
@@ -132,6 +135,7 @@ const BackofficeFront = () => {
   const router = useRouter()
 
   console.log("data", descargasData)
+  console.log("data2", chuveirosData)
 
   // go to /home if not logged in
   useEffect(() => {
@@ -174,14 +178,14 @@ const BackofficeFront = () => {
   async function handleDescargaFormSubmit(e) {
     e.preventDefault()
     if (descargaName != "") {
-      const newDescarga: DescargaType = {
+      const newDescarga = {
         name: descargaName,
         image: selectedFileDescarga,
         type: vazaoOptions,
         id: Date.now(),
       }
 
-      createDescarga(newDescarga).then(() => {
+      createDescarga(newDescarga, token).then(() => {
         clearDescargaForm()
         setToggleDescargasForm(!toggleDescargasForm)
       })
@@ -281,11 +285,12 @@ const BackofficeFront = () => {
                 />
               )}
 
-              {/* {chuveirosData.map((chuveiro) => (
-                <SectionItemCard key={chuveiro.id}>
-                  <span>{chuveiro.name}</span>
-                </SectionItemCard>
-              ))} */}
+              {chuveirosData &&
+                chuveirosData.map((chuveiro) => (
+                  <SectionItemCard key={chuveiro.id}>
+                    <span>{chuveiro.name}</span>
+                  </SectionItemCard>
+                ))}
             </div>
           </Section>
         </SectionWrapper>

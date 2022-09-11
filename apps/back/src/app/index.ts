@@ -14,5 +14,5 @@ export const connectModules = (app: Router, { db }: modulesDeps) => {
     .use("/books", BooksModule({ db }))
     .use("/users", UsersModule({ db }))
     .use("/flushes", FlushSystemsModule({ db }))
-    .use("/shower", ShowerModule({ db }))
+    .use("/showers", ShowerModule({ db }))
 }

@@ -7,12 +7,12 @@ export type FlushSystemEntity = {
   id?: number
   name: string
   type: FlushSystemType[]
-  image: File | null
+  imageUrl?: string
 }
 
 export type ShowerEntity = {
   id?: number
   name: string
   waterPerMinute: number
-  image: File | null
+  imageUrl?: string
 }
