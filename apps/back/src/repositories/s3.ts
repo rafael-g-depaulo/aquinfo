@@ -4,6 +4,7 @@ import {
   S3Client,
   PutObjectCommand,
   GetObjectCommand,
+  PutObjectCommandOutput,
 } from "@aws-sdk/client-s3"
 
 const key_id = process.env.S3_ACCESS_KEY_ID
@@ -16,9 +17,30 @@ const s3 = new S3Client({
   credentials: { accessKeyId: key_id, secretAccessKey: secret },
 })
 
+interface UploadResult extends PutObjectCommandOutput {
+  Key: string
+  url: string
+}
+
 export async function store(name: string, Body: string | Uint8Array | Buffer) {
-  const command = new PutObjectCommand({ Bucket, Body, Key: name })
-  await s3.send(command)
+  const now = new Date()
+  const Key = `${now.getFullYear()}-${now.getMonth()}-${now.getDay()}-${now.getTime()}-${name}`
+  const command = new PutObjectCommand({
+    Bucket,
+    Body,
+    Key,
+  })
+  return new Promise<PutObjectCommandOutput>((resolve, reject) =>
+    s3.send(command, (err, data) => (err ? reject(err) : resolve({ ...data }))),
+  ).then<UploadResult>((output) => {
+    return {
+      ...output,
+      Key,
+      url: `https://${Bucket}.s3.amazonaws.com/${encodeURI(
+        Key.replace(" ", "+"),
+      )}`,
+    }
+  })
 }
 
 export async function retrieve(res: Response, name: string) {
