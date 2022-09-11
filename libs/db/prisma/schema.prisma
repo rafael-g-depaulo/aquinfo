@@ -23,11 +23,13 @@ model User {
 }
 
 model FlushSystem {
-  id         Int  @id @default(autoincrement())
+  id         Int     @id @default(autoincrement())
   flushTypes Json
+  imageUrl   String?
 }
 
 model ShowerModel {
-  id                   Int   @id @default(autoincrement())
+  id                   Int     @id @default(autoincrement())
   consumptionPerMinute Float
+  imageUrl             String?
 }
