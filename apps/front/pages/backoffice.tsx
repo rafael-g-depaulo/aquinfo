@@ -4,7 +4,11 @@ import { useRouter } from "next/router"
 import { Header } from "../components/Header"
 import styled from "styled-components"
 import AdminDescargaForm from "../components/AdminDescargaForm"
-import { createDescarga, DescargaType } from "../api/createDescarga"
+import {
+  createDescarga,
+  DescargaType,
+  useDescargas,
+} from "../api/createDescarga"
 import AdminChuveiroForm from "../components/AdminChuveiroForm"
 import { ChuveiroType, createChuveiro } from "../api/createChuveiro"
 
@@ -108,10 +112,9 @@ const SectionItemCard = styled.div`
 const BackofficeFront = () => {
   const isLoggedIn = true // mocked
 
-  const [descargasData, setDescargasData] = useState<DescargaType[]>([])
+  const { data: descargasData } = useDescargas()
   const [toggleDescargasForm, setToggleDescargasForm] = useState(false)
 
-  const [chuveirosData, setChuveirosData] = useState([])
   const [toggleChuveirosForm, setToggleChuveirosForm] = useState(false)
 
   // descarga form values
@@ -128,6 +131,8 @@ const BackofficeFront = () => {
 
   const router = useRouter()
 
+  console.log("data", descargasData)
+
   // go to /home if not logged in
   useEffect(() => {
     if (!isLoggedIn) {
@@ -140,51 +145,6 @@ const BackofficeFront = () => {
   // change page name
   useEffect(() => {
     document.title = "Área Admin"
-  }, [])
-
-  // fetched data, mocked for now
-  useEffect(() => {
-    const fetchedDescargaData = [
-      {
-        id: 1,
-        name: "Válvula",
-        type: [
-          { seconds: 3, totalWaterCost: 5 },
-          { seconds: 7, totalWaterCost: 15 },
-        ],
-        image: null,
-      },
-      {
-        id: 2,
-        name: "Caixa Elevada",
-        type: [
-          { seconds: 4, totalWaterCost: 4 },
-          { seconds: 10, totalWaterCost: 10 },
-        ],
-        image: null,
-      },
-      {
-        id: 3,
-        name: "Caixa Acoplada",
-        type: [
-          { seconds: 5, totalWaterCost: 10 },
-          { seconds: 8, totalWaterCost: 20 },
-        ],
-        image: null,
-      },
-    ]
-
-    const fetchedChuveiroData = [
-      {
-        id: 1,
-        name: "Elétrico",
-        waterPerMinute: 4,
-        image: null,
-      },
-    ]
-
-    setDescargasData(fetchedDescargaData)
-    setChuveirosData(fetchedChuveiroData)
   }, [])
 
   function clearDescargaForm() {
@@ -221,10 +181,7 @@ const BackofficeFront = () => {
         id: Date.now(),
       }
 
-      console.log(newDescarga)
-
       createDescarga(newDescarga).then(() => {
-        setDescargasData([...descargasData, newDescarga])
         clearDescargaForm()
         setToggleDescargasForm(!toggleDescargasForm)
       })
@@ -233,7 +190,7 @@ const BackofficeFront = () => {
 
   async function handleChuveiroFormSubmit(e) {
     e.preventDefault()
-    if (chuveiroName != "" && waterCostPerMinute > 0) {
+    if (chuveiroName !== "" && waterCostPerMinute > 0) {
       const newChuveiro: ChuveiroType = {
         name: chuveiroName,
         image: selectedFileChuveiro,
@@ -241,10 +198,7 @@ const BackofficeFront = () => {
         id: Date.now(),
       }
 
-      console.log(newChuveiro)
-
       createChuveiro(newChuveiro).then(() => {
-        setChuveirosData([...chuveirosData, newChuveiro])
         clearChuveiroForm()
         setToggleChuveirosForm(!toggleChuveirosForm)
       })
@@ -288,25 +242,16 @@ const BackofficeFront = () => {
                 />
               )}
 
-              {descargasData.map((descarga) => (
-                <SectionItemCard key={descarga.id}>
-                  <span>{descarga.name}</span>
-                  <div>
-                    <span>{descarga.type.length} opções de vazão</span>
-                  </div>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault()
-                      // delete from server
-                      setDescargasData(
-                        descargasData.filter((d) => d.id != descarga.id),
-                      )
-                    }}
-                  >
-                    x
-                  </button>
-                </SectionItemCard>
-              ))}
+              {descargasData &&
+                descargasData.map((descarga) => (
+                  <SectionItemCard key={descarga.id}>
+                    <span>{descarga.name}</span>
+                    <div>
+                      {(console.log("asdasd", descarga), (<></>))}
+                      <span>{descarga.type.length} opções de vazão</span>
+                    </div>
+                  </SectionItemCard>
+                ))}
             </div>
           </Section>
           <Section id="chuveiros">
@@ -336,22 +281,11 @@ const BackofficeFront = () => {
                 />
               )}
 
-              {chuveirosData.map((chuveiro) => (
+              {/* {chuveirosData.map((chuveiro) => (
                 <SectionItemCard key={chuveiro.id}>
                   <span>{chuveiro.name}</span>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault()
-                      // delete from server
-                      setChuveirosData(
-                        chuveirosData.filter((c) => c.id != chuveiro.id),
-                      )
-                    }}
-                  >
-                    x
-                  </button>
                 </SectionItemCard>
-              ))}
+              ))} */}
             </div>
           </Section>
         </SectionWrapper>
