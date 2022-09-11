@@ -24,6 +24,7 @@ model User {
 
 model FlushSystem {
   id         Int     @id @default(autoincrement())
+  name       String
   flushTypes Json
   imageUrl   String?
 }
