@@ -49,14 +49,7 @@ const Value = styled.span`
     margin: 0;
   }
 `
-const ListItem = ({
-  type,
-  modelName = "Model XPTO nome grande",
-  descargaType = { seconds: 0, totalWaterCost: 0 },
-  timesPressed = 0,
-  waterPerMinute = 0,
-  minutesPressed = 0,
-}) => {
+const ListItem = ({ type, consumo, deleteFromList }) => {
   return (
     <>
       <Body>
@@ -65,21 +58,21 @@ const ListItem = ({
         </div>
         <div style={{ flex: 2 }}>
           <Label>{type === 0 ? "Chuveiro" : "Descarga"}</Label>
-          <Title>{modelName}</Title>
+          <Title>{consumo.name}</Title>
         </div>
         <div style={{ flex: 1, alignSelf: "flex-end", alignItems: "center" }}>
           {type === 0 && (
             <>
               <Label>Ligado Por</Label>
-              <Value>{minutesPressed} min</Value>
+              <Value>{consumo.minutesPressed} min</Value>
             </>
           )}
           {type === 1 && (
             <>
               <Label>Acionado</Label>
-              <Value>{timesPressed} vezes</Value>
+              <Value>{consumo.timesPressed} vezes</Value>
               <Label>Durante</Label>
-              <Value>{descargaType.seconds} segs</Value>
+              <Value>{consumo.type[0].seconds} segs</Value>
             </>
           )}
         </div>
@@ -88,6 +81,9 @@ const ListItem = ({
           color="red"
           size="2xs"
           style={{ cursor: "pointer" }}
+          onClick={() => {
+            deleteFromList(consumo.id)
+          }}
         />
       </Body>
     </>

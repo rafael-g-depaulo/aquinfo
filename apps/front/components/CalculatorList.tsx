@@ -57,7 +57,7 @@ const ListScroll = styled.div`
 `
 // =================================== End of Styles =====================================================
 
-const CalculatorList = ({ consumoList = [] }) => {
+const CalculatorList = ({ consumoList = [], deleteFromList }) => {
   return (
     <>
       <Body>
@@ -84,8 +84,8 @@ const CalculatorList = ({ consumoList = [] }) => {
                 <ListItem
                   type={0}
                   key={c.id}
-                  modelName={c.name}
-                  minutesPressed={c.minutesPressed}
+                  consumo={c}
+                  deleteFromList={deleteFromList}
                 />
               )
             }
@@ -94,9 +94,8 @@ const CalculatorList = ({ consumoList = [] }) => {
                 <ListItem
                   type={1}
                   key={c.id}
-                  modelName={c.name}
-                  descargaType={c.type[0]}
-                  timesPressed={c.timesPressed}
+                  consumo={c}
+                  deleteFromList={deleteFromList}
                 />
               )
             }

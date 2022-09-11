@@ -77,6 +77,10 @@ const Button = styled.button`
     background-color: #53d8a5;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   }
+  :disabled{
+    background-color: #e6f3ee33;
+    box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.25);
+  }
   transition-duration: 0.3s;
 `
 // =================================== End of Styles =====================================================
@@ -213,6 +217,12 @@ const CalculadoraFront = () => {
     setShowResults(true)
   }
 
+  // delete from list
+  function deleteFromList(id) {
+    console.log(`Fechou ${id}`)
+    setConsumoList(consumoList.filter((consumo) => consumo.id != id))
+  }
+
   return (
     <>
       <Header></Header>
@@ -243,7 +253,10 @@ const CalculadoraFront = () => {
           </Wrapper>
           <Wrapper>
             <div style={{ flex: 1, padding: "1rem 3rem 1rem 0" }}>
-              <CalculatorList consumoList={consumoList} />
+              <CalculatorList
+                consumoList={consumoList}
+                deleteFromList={deleteFromList}
+              />
             </div>
             <div style={{ flex: 1 }}>
               <Paragraph>
@@ -257,6 +270,7 @@ const CalculadoraFront = () => {
                 Resultados” abaixo para exibir seus resultados.
               </Paragraph>
               <Button
+                disabled={consumoList.length > 0 ? false : true}
                 onClick={() => {
                   handleConsumptionCalculation()
                 }}
