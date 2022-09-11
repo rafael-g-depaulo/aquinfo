@@ -27,7 +27,7 @@ export const FlushSystemsModule = ({ db }: FlushSystemsDeps) => {
         })
     })
     .post("/create", loggedIn, (req, res) => {
-      const { flushTypes } = req.body
+      const { flushTypes, name } = req.body
       const file = getFile(req, "image")
       sendFileToS3(file)
         .then((result) => result.url)
@@ -39,6 +39,7 @@ export const FlushSystemsModule = ({ db }: FlushSystemsDeps) => {
                 totalWaterCost: parseFloat(f.totalWaterCost),
               })),
               imageUrl,
+              name,
             },
           }),
         )

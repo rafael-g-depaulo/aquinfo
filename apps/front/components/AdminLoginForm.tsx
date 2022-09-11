@@ -1,3 +1,4 @@
+import { useRouter } from "next/router"
 import { startTransition, useCallback } from "react"
 import { useForm } from "react-hook-form"
 import styled from "styled-components"
@@ -21,6 +22,8 @@ export const AdminLoginForm = () => {
   const { data, mutate } = useMutateLogin()
   const { setToken } = useUserToken()
 
+  const router = useRouter()
+
   const submitCallback = useCallback(
     ({ email, senha }: Fields) => {
       startTransition(() => {
@@ -32,6 +35,7 @@ export const AdminLoginForm = () => {
 
   if (data) {
     setToken(data.token)
+    router.replace("/home")
   }
 
   return (
