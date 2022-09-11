@@ -2,6 +2,7 @@ import { PrismaClient } from "@db"
 import { Router } from "express"
 import { BooksModule } from "./books-example"
 import { FlushSystemsModule } from "./flush-module"
+import { ShowerModule } from "./shower-module"
 import { UsersModule } from "./usersModule"
 
 interface modulesDeps {
@@ -13,4 +14,5 @@ export const connectModules = (app: Router, { db }: modulesDeps) => {
     .use("/books", BooksModule({ db }))
     .use("/users", UsersModule({ db }))
     .use("/flushes", FlushSystemsModule({ db }))
+    .use("/shower", ShowerModule({ db }))
 }
