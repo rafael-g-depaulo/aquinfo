@@ -29,7 +29,7 @@ model FlushSystem {
 }
 
 model ShowerModel {
-  id                   Int     @id @default(autoincrement())
-  consumptionPerMinute Float
-  imageUrl             String?
+  id             Int     @id @default(autoincrement())
+  waterPerMinute Float
+  imageUrl       String?
 }
