@@ -7,6 +7,7 @@ import CalculatorIcon from "../assets/calculator_icon.svg"
 import Image from "next/image"
 import CalculatorList from "../components/CalculatorList"
 import ResultsCard from "../components/ResultsCard"
+import CalculatorModal from "../components/CalculatorModal"
 
 // =================================== Begin Styles =====================================================
 const Main = styled.main`
@@ -77,7 +78,7 @@ const Button = styled.button`
     background-color: #53d8a5;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   }
-  :disabled{
+  :disabled {
     background-color: #e6f3ee33;
     box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.25);
   }
@@ -98,6 +99,8 @@ const CalculadoraFront = () => {
 
   const [showResults, setShowResults] = useState(false)
 
+  const [toggleModal, setToggleModal] = useState(false)
+
   // change page name
   useEffect(() => {
     document.title = "Aqüinfo | Calculadora"
@@ -110,8 +113,8 @@ const CalculadoraFront = () => {
         id: 1,
         name: "Válvula",
         type: [
-          { seconds: 3, totalWaterCost: 5 },
-          { seconds: 7, totalWaterCost: 15 },
+          { id: 101, seconds: 3, totalWaterCost: 5 },
+          { id: 102, seconds: 7, totalWaterCost: 15 },
         ],
         image: null,
       },
@@ -119,8 +122,8 @@ const CalculadoraFront = () => {
         id: 2,
         name: "Caixa Elevada",
         type: [
-          { seconds: 4, totalWaterCost: 4 },
-          { seconds: 10, totalWaterCost: 10 },
+          { id: 201, seconds: 4, totalWaterCost: 4 },
+          { id: 202, seconds: 10, totalWaterCost: 10 },
         ],
         image: null,
       },
@@ -128,8 +131,8 @@ const CalculadoraFront = () => {
         id: 3,
         name: "Caixa Acoplada",
         type: [
-          { seconds: 5, totalWaterCost: 10 },
-          { seconds: 8, totalWaterCost: 20 },
+          { id: 301, seconds: 5, totalWaterCost: 10 },
+          { id: 303, seconds: 8, totalWaterCost: 20 },
         ],
         image: null,
       },
@@ -146,39 +149,6 @@ const CalculadoraFront = () => {
 
     setDescargasData(fetchedDescargaData)
     setChuveirosData(fetchedChuveiroData)
-  }, [])
-
-  //mocked consumo List
-  useEffect(() => {
-    setConsumoList([
-      {
-        id: 1,
-        name: "Válvula",
-        type: [
-          { seconds: 3, totalWaterCost: 5 },
-          { seconds: 7, totalWaterCost: 15 },
-        ],
-        image: null,
-        timesPressed: 5,
-      },
-      {
-        id: 2,
-        name: "Elétrico",
-        waterPerMinute: 4,
-        image: null,
-        minutesPressed: 110,
-      },
-      {
-        id: 3,
-        name: "Caixa Acoplada",
-        type: [
-          { seconds: 5, totalWaterCost: 10 },
-          { seconds: 8, totalWaterCost: 20 },
-        ],
-        image: null,
-        timesPressed: 9,
-      },
-    ])
   }, [])
 
   // scroll into view
@@ -204,8 +174,8 @@ const CalculadoraFront = () => {
         totalWaterSpent += c.waterPerMinute * c.minutesPressed
       }
       if (type === 1) {
-        //consumo descarga (isso vai bugar pq tem que poder escolher qual valor do array mandar)
-        totalWaterSpent += c.type[0].totalWaterCost * c.timesPressed
+        //consumo descarga
+        totalWaterSpent += c.type.totalWaterCost * c.timesPressed
       }
     })
 
@@ -219,12 +189,20 @@ const CalculadoraFront = () => {
 
   // delete from list
   function deleteFromList(id) {
-    console.log(`Fechou ${id}`)
     setConsumoList(consumoList.filter((consumo) => consumo.id != id))
   }
 
   return (
     <>
+      {toggleModal && (
+        <CalculatorModal
+          setToggleModal={setToggleModal}
+          chuveirosData={chuveirosData}
+          descargasData={descargasData}
+          consumoList={consumoList}
+          setConsumoList={setConsumoList}
+        />
+      )}
       <Header></Header>
       <Main>
         <PageTitle>Calculadora</PageTitle>
@@ -256,6 +234,7 @@ const CalculadoraFront = () => {
               <CalculatorList
                 consumoList={consumoList}
                 deleteFromList={deleteFromList}
+                setToggleModal={setToggleModal}
               />
             </div>
             <div style={{ flex: 1 }}>

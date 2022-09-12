@@ -72,7 +72,7 @@ const ListItem = ({ type, consumo, deleteFromList }) => {
               <Label>Acionado</Label>
               <Value>{consumo.timesPressed} vezes</Value>
               <Label>Durante</Label>
-              <Value>{consumo.type[0].seconds} segs</Value>
+              <Value>{consumo.type.seconds} segs</Value>
             </>
           )}
         </div>

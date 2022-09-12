@@ -57,7 +57,11 @@ const ListScroll = styled.div`
 `
 // =================================== End of Styles =====================================================
 
-const CalculatorList = ({ consumoList = [], deleteFromList }) => {
+const CalculatorList = ({
+  consumoList = [],
+  deleteFromList,
+  setToggleModal,
+}) => {
   return (
     <>
       <Body>
@@ -66,7 +70,14 @@ const CalculatorList = ({ consumoList = [], deleteFromList }) => {
             <Title>CONSUMOS INFORMADOS</Title>
             <Label>Total: {consumoList.length}</Label>
           </HeaderWrapper>
-          <FontAwesomeIcon icon={faPlus} color="#0081CF" size="2x" />
+          <FontAwesomeIcon
+            icon={faPlus}
+            color="#0081CF"
+            size="2x"
+            onClick={() => {
+              setToggleModal(true)
+            }}
+          />
         </ListHeader>
         <ListScroll>
           {consumoList.length <= 0 && <span>Adicione um consumo</span>}
