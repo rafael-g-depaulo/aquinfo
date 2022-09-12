@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@db": ["libs/db/src/index.ts"]
+      "@db": ["libs/db/src/index.ts"],
+      "@water-calc": ["libs/business-logic/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

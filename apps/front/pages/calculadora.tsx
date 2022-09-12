@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { Header } from "../components/Header"
 import styled from "styled-components"
-import { ChuveiroType, gastoPorLitroPorMês } from "../api/createChuveiro"
-import { DescargaType } from "../api/createDescarga"
+import { gastoPorLitroPorMês } from "../api/createChuveiro"
 import CalculatorIcon from "../assets/calculator_icon.svg"
 import Image from "next/image"
 import CalculatorList from "../components/CalculatorList"
@@ -89,8 +88,8 @@ const Button = styled.button`
 const CalculadoraFront = () => {
   const resultsRef = useRef(null)
 
-  const [descargasData, setDescargasData] = useState<DescargaType[]>([])
-  const [chuveirosData, setChuveirosData] = useState<ChuveiroType[]>([])
+  const [descargasData, setDescargasData] = useState([])
+  const [chuveirosData, setChuveirosData] = useState([])
 
   const [consumoList, setConsumoList] = useState([])
 

@@ -14,14 +14,7 @@ export const UsersModule = ({ db }: UsersDeps) => {
   return Router()
     .get("/", (req, res) => {
       db.user.findMany().then((Users) => {
-        res.json([
-          ...Users,
-          {
-            id: "noneofyourbusiness",
-            title: "hardcoded example",
-            publishDate: new Date(),
-          },
-        ])
+        res.json([...Users])
       })
     })
     .post("/create", (req, res) => {
