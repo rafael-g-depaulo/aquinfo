@@ -1,8 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faX } from "@fortawesome/free-solid-svg-icons"
 import styled from "styled-components"
-import DefaultWaterImage from "../assets/waterDefaultImage.jpg"
 import Image from "next/image"
+
+const DefaultWaterImage = "/assets/shower.png"
 
 const Body = styled.div`
   display: flex;
@@ -23,8 +24,6 @@ const Body = styled.div`
   }
 `
 const StyledImg = styled(Image)`
-  width: 100%;
-  height: 100%;
   border: 1px solid #336666;
   border-radius: 100%;
 `
@@ -49,37 +48,30 @@ const Value = styled.span`
     margin: 0;
   }
 `
-const ListItem = ({
-  type,
-  modelName = "Model XPTO nome grande",
-  descargaType = { seconds: 0, totalWaterCost: 0 },
-  timesPressed = 0,
-  waterPerMinute = 0,
-  minutesPressed = 0,
-}) => {
+const ListItem = ({ type, consumo, deleteFromList }) => {
   return (
     <>
       <Body>
         <div style={{ flex: 1 }}>
-          <StyledImg src={DefaultWaterImage} alt="model image" />
+          <StyledImg src={DefaultWaterImage} alt="model image" height="100%" width="100%" />
         </div>
         <div style={{ flex: 2 }}>
           <Label>{type === 0 ? "Chuveiro" : "Descarga"}</Label>
-          <Title>{modelName}</Title>
+          <Title>{consumo.name}</Title>
         </div>
         <div style={{ flex: 1, alignSelf: "flex-end", alignItems: "center" }}>
           {type === 0 && (
             <>
               <Label>Ligado Por</Label>
-              <Value>{minutesPressed} min</Value>
+              <Value>{consumo.minutesPressed} min</Value>
             </>
           )}
           {type === 1 && (
             <>
               <Label>Acionado</Label>
-              <Value>{timesPressed} vezes</Value>
+              <Value>{consumo.timesPressed} vezes</Value>
               <Label>Durante</Label>
-              <Value>{descargaType.seconds} segs</Value>
+              <Value>{consumo.type.seconds} segs</Value>
             </>
           )}
         </div>
@@ -88,6 +80,9 @@ const ListItem = ({
           color="red"
           size="2xs"
           style={{ cursor: "pointer" }}
+          onClick={() => {
+            deleteFromList(consumo.id)
+          }}
         />
       </Body>
     </>

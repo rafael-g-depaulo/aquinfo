@@ -57,7 +57,11 @@ const ListScroll = styled.div`
 `
 // =================================== End of Styles =====================================================
 
-const CalculatorList = ({ consumoList = [] }) => {
+const CalculatorList = ({
+  consumoList = [],
+  deleteFromList,
+  setToggleModal,
+}) => {
   return (
     <>
       <Body>
@@ -66,7 +70,14 @@ const CalculatorList = ({ consumoList = [] }) => {
             <Title>CONSUMOS INFORMADOS</Title>
             <Label>Total: {consumoList.length}</Label>
           </HeaderWrapper>
-          <FontAwesomeIcon icon={faPlus} color="#0081CF" size="2x" />
+          <FontAwesomeIcon
+            icon={faPlus}
+            color="#0081CF"
+            size="2x"
+            onClick={() => {
+              setToggleModal(true)
+            }}
+          />
         </ListHeader>
         <ListScroll>
           {consumoList.length <= 0 && <span>Adicione um consumo</span>}
@@ -84,8 +95,8 @@ const CalculatorList = ({ consumoList = [] }) => {
                 <ListItem
                   type={0}
                   key={c.id}
-                  modelName={c.name}
-                  minutesPressed={c.minutesPressed}
+                  consumo={c}
+                  deleteFromList={deleteFromList}
                 />
               )
             }
@@ -94,9 +105,8 @@ const CalculatorList = ({ consumoList = [] }) => {
                 <ListItem
                   type={1}
                   key={c.id}
-                  modelName={c.name}
-                  descargaType={c.type[0]}
-                  timesPressed={c.timesPressed}
+                  consumo={c}
+                  deleteFromList={deleteFromList}
                 />
               )
             }
