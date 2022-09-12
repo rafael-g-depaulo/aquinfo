@@ -1,8 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faX } from "@fortawesome/free-solid-svg-icons"
 import styled from "styled-components"
-import DefaultWaterImage from "../assets/waterDefaultImage.jpg"
 import Image from "next/image"
+
+const DefaultWaterImage = "/assets/shower.png"
 
 const Body = styled.div`
   display: flex;
@@ -23,8 +24,6 @@ const Body = styled.div`
   }
 `
 const StyledImg = styled(Image)`
-  width: 100%;
-  height: 100%;
   border: 1px solid #336666;
   border-radius: 100%;
 `
@@ -54,7 +53,7 @@ const ListItem = ({ type, consumo, deleteFromList }) => {
     <>
       <Body>
         <div style={{ flex: 1 }}>
-          <StyledImg src={DefaultWaterImage} alt="model image" />
+          <StyledImg src={DefaultWaterImage} alt="model image" height="100%" width="100%" />
         </div>
         <div style={{ flex: 2 }}>
           <Label>{type === 0 ? "Chuveiro" : "Descarga"}</Label>

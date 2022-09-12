@@ -4,11 +4,7 @@ import { useRouter } from "next/router"
 import { Header } from "../components/Header"
 import styled from "styled-components"
 import AdminDescargaForm from "../components/AdminDescargaForm"
-import {
-  createDescarga,
-  DescargaType,
-  useDescargas,
-} from "../api/createDescarga"
+import { createDescarga, useDescargas } from "../api/createDescarga"
 import AdminChuveiroForm from "../components/AdminChuveiroForm"
 import { ChuveiroType, createChuveiro } from "../api/createChuveiro"
 
@@ -174,7 +170,7 @@ const BackofficeFront = () => {
   async function handleDescargaFormSubmit(e) {
     e.preventDefault()
     if (descargaName != "") {
-      const newDescarga: DescargaType = {
+      const newDescarga = {
         name: descargaName,
         image: selectedFileDescarga,
         type: vazaoOptions,

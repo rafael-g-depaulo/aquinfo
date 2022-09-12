@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Image from "next/image"
 import { useRef, useEffect, useState } from "react"
 import styled from "styled-components"
-import defaultImage from "../assets/waterDefaultImage.jpg"
+
+const defaultImage = "/assets/shower.png"
 
 // =================================== Begin Styles ======================================================
 const Background = styled.div<{ render?: boolean }>`

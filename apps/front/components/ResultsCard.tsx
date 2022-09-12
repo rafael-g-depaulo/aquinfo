@@ -1,3 +1,4 @@
+import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
 import styled from "styled-components"
 
@@ -93,6 +94,8 @@ const ResultsCard = ({ waterSpent, waterCost }) => {
   const aguaRecomendada = 400
   const [render, setRender] = useState(false)
 
+  const router = useRouter()
+
   // render cards on mount
   useEffect(() => {
     setRender(true)
@@ -156,7 +159,13 @@ const ResultsCard = ({ waterSpent, waterCost }) => {
           número? Veja nossas seção dicas para saber como!
         </Text>
       )}
-      <Button>Ver Dicas!</Button>
+      <Button
+        onClick={() => {
+          router.replace("/dicas")
+        }}
+      >
+        Ver Dicas!
+      </Button>
     </Section>
   )
 }

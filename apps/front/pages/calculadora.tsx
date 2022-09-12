@@ -2,11 +2,12 @@ import { useState, useEffect, useRef } from "react"
 import { Header } from "../components/Header"
 import styled from "styled-components"
 import { gastoPorLitroPorMês } from "../api/createChuveiro"
-import CalculatorIcon from "../assets/calculator_icon.svg"
 import Image from "next/image"
 import CalculatorList from "../components/CalculatorList"
 import ResultsCard from "../components/ResultsCard"
 import CalculatorModal from "../components/CalculatorModal"
+
+const CalculatorIcon = "/assets/calculator_icon.svg"
 
 // =================================== Begin Styles =====================================================
 const Main = styled.main`
